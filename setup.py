@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-
-from setuptools import setup, find_packages
-
-long_desc = '''
+"""
 This package contains the zopeext Sphinx extension.
 
 Documentation: http://packages.python.org/sphinxcontrib-zopeext
@@ -16,8 +13,8 @@ This provides some support for Zope interfaces by providing an `autointerface`
 directive that acts like `autoclass` except uses the Zope interface methods for
 attribute and method lookup (the interface mechanism hides the attributes and
 method so the usual `autoclass` directive fails.)  Interfaces are intended
-to be very different beasts than regular python classes, and as a result require
-customized access to documentation, signatures etc.
+to be very different beasts than regular python classes, and as a result
+require customized access to documentation, signatures etc.
 
 See Also
 --------
@@ -25,12 +22,33 @@ See Also
 * http://sphinx.pocoo.org/ext/autodoc.html
 * http://docs.zope.org/zope.interface/README.html
 * http://packages.python.org/sphinxcontrib-zopeext/
+"""
+import sys
 
-'''
+from setuptools import setup, find_packages
+
+import sphinxcontrib.zopeext
 
 requires = ['Sphinx>=0.6', 'zope.interface']
 
-import sphinxcontrib.zopeext
+setup_requires = ['pytest-runner']
+
+test_requires = [
+    'sphinx-testing',    
+    'pytest>=2.8.1',
+    'pytest-cov>=2.2.0',
+    'pytest-flake8',
+    'coverage',
+    'flake8',
+    'pep8==1.5.7',  # Needed by flake8: dependency resolution issue if not pinned
+]
+
+# Remove NAME from sys.modules so that it gets covered in tests. See
+# http://stackoverflow.com/questions/11279096
+for mod in sys.modules.keys():
+    if mod.startswith('sphinxcontrib.zopeext'):
+        del sys.modules[mod]
+del mod
 
 setup(
     name='sphinxcontrib-zopeext',
@@ -41,7 +59,7 @@ setup(
     author='Michael McNeil Forbes',
     author_email='michael.forbes+pypim@gmail.com',
     description='Sphinx extension zopeext',
-    long_description=long_desc,
+    long_description=__doc__,
     zip_safe=False,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -59,5 +77,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=requires,
+    setup_requires=setup_requires,
+    tests_require=test_requires,
     namespace_packages=['sphinxcontrib'],
 )

@@ -32,7 +32,7 @@ Implementation Details
 ======================
 
 .. autosummary::
-   
+
    interface_getattr
    interface_format_args
    InterfaceDocumenter
@@ -49,21 +49,22 @@ from sphinx.locale import l_
 
 import zope.interface.interface
 
+
 def interface_getattr(*v):
     """Behaves like `getattr` but for zope Interface objects which
     hide the attributes.
 
-    .. note:: Originally I simply tried to 
+    .. note:: Originally I simply tried to
        override :meth:`InterfaceDocumenter.special_attrgetter` to deal with the
        special access needs of :class:`Interface` objects, but found that this
        is not intended to be overwritten.  Instead one should register the
-       special accessor using :func:`app.add_autodoc_attrgetter`. 
+       special accessor using :func:`app.add_autodoc_attrgetter`.
     """
     obj, name = v[:2]
     if "__dict__" == name:
         # Interface objects do not list their members through
         # __dict__.
-        return dict((n,obj.get(n)) for n in obj.names())
+        return dict((n, obj.get(n)) for n in obj.names())
     try:
         return getattr(obj, name)
     except AttributeError:
@@ -73,6 +74,7 @@ def interface_getattr(*v):
             return v[2]
         else:
             raise
+
 
 def interface_format_args(obj):
     r"""Return the signature of an interface method or of an
@@ -90,6 +92,7 @@ def interface_format_args(obj):
         elif sig in ("(self)", "(cls)"):
             sig = "()"
     return sig
+
 
 class InterfaceDocumenter(sphinx.ext.autodoc.ClassDocumenter):
     """A Documenter for :class:`zope.interface.Interface` interfaces.
@@ -118,6 +121,7 @@ class InterfaceDocumenter(sphinx.ext.autodoc.ClassDocumenter):
         obj = self.object
         names = obj.names(want_all)
         return False, [(_name, obj.get(_name)) for _name in names]
+
 
 class InterfaceAttributeDocumenter(sphinx.ext.autodoc.AttributeDocumenter):
     """A Documenter for :class:`zope.interface.interface.Attribute`
@@ -156,7 +160,7 @@ class InterfaceMethodDocumenter(sphinx.ext.autodoc.MethodDocumenter):
     def format_args(self):
         return interface_format_args(self.object)
 
-#class InterfaceDirective(sphinx.ext.autodoc.AutoDirective):
+
 class InterfaceDirective(sphinx.domains.python.PyClasslike):
     r"""An `'interface'` directive."""
     def get_index_text(self, modname, name_cls):
@@ -166,6 +170,7 @@ class InterfaceDirective(sphinx.domains.python.PyClasslike):
             return '%s (%s interface)' % (name_cls[0], modname)
         else:
             return ''
+
 
 def setup(app):
     app.add_autodoc_attrgetter(zope.interface.interface.InterfaceClass,
