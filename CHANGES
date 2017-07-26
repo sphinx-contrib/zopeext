@@ -2,6 +2,15 @@
 
 This file describes user-visible changes between the extension versions.
 
+Version 0.2.2 (2017-07-26)
+==========================
+
+* Removed stripping of `cls`, and `self` from signatures.  It is an error to
+  include these arguments in an Interface as they are not part of the public
+  interface of the object.  Interfaces with these will not validate properly.
+* Do not include constructor in interface - add docstring (if it is provided)
+  to the class documentation.
+
 Version 0.2.1 (2013-05-01)
 ==========================
 

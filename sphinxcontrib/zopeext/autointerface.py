@@ -85,12 +85,6 @@ def interface_format_args(obj):
             sig = interface_format_args(obj.get('__init__'))
     else:
         sig = obj.getSignatureString()
-        if sig.startswith('(self, '):
-            sig = "(" + sig[7:]
-        elif sig.startswith('(cls, '):
-            sig = "(" + sig[6:]
-        elif sig in ("(self)", "(cls)"):
-            sig = "()"
     return sig
 
 
@@ -120,7 +114,31 @@ class InterfaceDocumenter(sphinx.ext.autodoc.ClassDocumenter):
         """
         obj = self.object
         names = obj.names(want_all)
-        return False, [(_name, obj.get(_name)) for _name in names]
+
+        # We exclude __init__ here since the arguments are rolled into the
+        # class signature, and the documentation is included in the class
+        # documentation.
+        return False, [(_name, obj.get(_name))
+                       for _name in names
+                       if _name != '__init__']
+
+    @staticmethod
+    def autodoc_process_docstring(app, what, name, obj, options, lines):
+        """Hook that adds the constructor docstring to the interface
+        docstring."""
+        if not isinstance(obj, zope.interface.interface.InterfaceClass):
+            return
+
+        constructor = obj.get('__init__')
+        if not constructor:
+            return
+
+        constructor_lines = constructor.getDoc()
+        if not constructor_lines:
+            return
+
+        # Docstring provided for constructor, so add it to the class docstring.
+        lines.extend([""] + constructor_lines.splitlines())
 
 
 class InterfaceAttributeDocumenter(sphinx.ext.autodoc.AttributeDocumenter):
@@ -138,8 +156,9 @@ class InterfaceAttributeDocumenter(sphinx.ext.autodoc.AttributeDocumenter):
         return res
 
     def add_content(self, more_content, no_docstring=False):
-        # Revert back to default since the docstring *is* the correct thing to
-        # display here.
+        # Bypass the original add_content method which filters out the content
+        # for attributes since interfaces actually have documentation (whereas
+        # regular attributes are values which have incorrect documentation).
         sphinx.ext.autodoc.ClassLevelDocumenter.add_content(
             self, more_content, no_docstring)
 
@@ -184,3 +203,6 @@ def setup(app):
         l_('interface'), 'interface', 'obj')
     domain.directives['interface'] = InterfaceDirective
     domain.roles['interface'] = sphinx.domains.python.PyXRefRole()
+
+    app.connect('autodoc-process-docstring',
+                InterfaceDocumenter.autodoc_process_docstring)

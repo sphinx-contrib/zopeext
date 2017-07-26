@@ -7,10 +7,16 @@ class IMyInterface(Interface):
     x = Attribute("A required attribute of the interface")
 
     def __init__(x):
-        """Constructor."""
+        """The constructor should set the attribute `x`."""
 
     def equals(x):
-        """A required method of the interface."""
+        """A required method of the interface.
+
+        .. note::
+
+           The argument `self` is not specified as part of the interface and
+           should be omitted, even though it is required in the implementation.
+        """
 
 
 class MyImplementation(object):
