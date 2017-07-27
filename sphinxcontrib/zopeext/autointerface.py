@@ -65,15 +65,11 @@ def interface_getattr(*v):
         # Interface objects do not list their members through
         # __dict__.
         return dict((n, obj.get(n)) for n in obj.names())
-    try:
-        return getattr(obj, name)
-    except AttributeError:
-        if name in obj.names(all=True):
-            return obj.get(name)
-        elif 2 < len(v):
-            return v[2]
-        else:
-            raise
+
+    if name in obj.names(all=True):
+        return obj.get(name)
+    else:
+        return getattr(*v)
 
 
 def interface_format_args(obj):
@@ -110,10 +106,13 @@ class InterfaceDocumenter(sphinx.ext.autodoc.ClassDocumenter):
         list of `(membername, member)` pairs of the members of *self.object*.
 
         If *want_all* is True, return all members.  Else, only return those
-        members given by *self.options.members* (which may also be none).
+        members given by *self.options.members* (which may also be None).
         """
         obj = self.object
-        names = obj.names(want_all)
+        names = sorted(obj.names(want_all))
+        members = self.options.get('members', None)
+        if members:
+            names = [name for name in members if name in set(names)]
 
         # We exclude __init__ here since the arguments are rolled into the
         # class signature, and the documentation is included in the class

@@ -30,13 +30,32 @@ Then, in your documentation, use :rst:dir:`autointerface` as you would use
 :rst:dir:`autoclass`.  Here is an example (click on the "[source]" link at the
 right to see the code):
 
-.. autointerface:: sphinxcontrib.zopeext.example.IMyInterface
+.. code-block:: ReST
 
+    .. autointerface:: sphinxcontrib.zopeext.example.IMyInterface
+
+which results in:
+
+.. autointerface:: sphinxcontrib.zopeext.example.IMyInterface
+		   
 .. note:: We have included the ``autointerface.css`` which simply adds the
    following rule to give a green background for the interface::
 
       dl.interface > dt { background-color: #33FF33; }
 
+One can also limit which members are displayed:
+
+.. code-block:: ReST
+
+    .. autointerface:: sphinxcontrib.zopeext.example.IMyInterface
+       :members: x, equals
+  
+which results in
+
+.. autointerface:: sphinxcontrib.zopeext.example.IMyInterface
+   :members: x, equals
+
+	     
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _build configuration file: http://sphinx.pocoo.org/config.html
 .. _Zope interfaces: http://docs.zope.org/zope.interface/README.html

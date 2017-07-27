@@ -4,6 +4,7 @@ from zope.interface import Interface, Attribute, implements
 
 class IMyInterface(Interface):
     """This is an example of an interface."""
+    _a = Attribute("A required attribute of the interface")
     x = Attribute("A required attribute of the interface")
 
     def __init__(x):
@@ -22,8 +23,10 @@ class IMyInterface(Interface):
 class MyImplementation(object):
     implements(IMyInterface)
 
+    _a = 1.0
+    
     def __init__(self, x):
-        self.x = x
+            self.x = x
 
     def equals(self, x):
         return self.x == x
