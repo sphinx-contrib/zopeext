@@ -2,6 +2,10 @@
 
 This file describes user-visible changes between the extension versions.
 
+Version 0.2.3 (2019-11-01)
+==========================
+* Fixed some Python 3 errors and Sphinx deprecation warnings.
+
 Version 0.2.2 (2017-07-26)
 ==========================
 

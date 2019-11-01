@@ -45,7 +45,7 @@ Implementation Details
 import sphinx.ext.autodoc
 import sphinx.domains.python
 import sphinx.roles
-from sphinx.locale import l_
+from sphinx.locale import _
 
 import zope.interface.interface
 
@@ -199,7 +199,7 @@ def setup(app):
 
     domain = sphinx.domains.python.PythonDomain
     domain.object_types['interface'] = sphinx.domains.python.ObjType(
-        l_('interface'), 'interface', 'obj')
+        _('interface'), 'interface', 'obj')
     domain.directives['interface'] = InterfaceDirective
     domain.roles['interface'] = sphinx.domains.python.PyXRefRole()
 

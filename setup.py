@@ -45,7 +45,7 @@ test_requires = [
 
 # Remove NAME from sys.modules so that it gets covered in tests. See
 # http://stackoverflow.com/questions/11279096
-for mod in sys.modules.keys():
+for mod in list(sys.modules.keys()):
     if mod.startswith('sphinxcontrib.zopeext'):
         del sys.modules[mod]
 del mod

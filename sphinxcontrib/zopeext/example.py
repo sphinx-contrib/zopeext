@@ -1,5 +1,5 @@
 import zope.interface.verify
-from zope.interface import Interface, Attribute, implements
+from zope.interface import Interface, Attribute, implementer
 
 
 class IMyInterface(Interface):
@@ -20,9 +20,8 @@ class IMyInterface(Interface):
         """
 
 
+@implementer(IMyInterface)
 class MyImplementation(object):
-    implements(IMyInterface)
-
     _a = 1.0
     
     def __init__(self, x):
