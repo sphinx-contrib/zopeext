@@ -53,11 +53,11 @@ del mod
 setup(
     name='sphinxcontrib-zopeext',
     version=sphinxcontrib.zopeext.__version__,
-    url='http://bitbucket.org/birkenfeld/sphinx-contrib',
+    url='https://github.com/sphinx-contrib/zopeext',
     download_url='http://pypi.python.org/pypi/sphinxcontrib-zopeext',
     license='BSD',
     author='Michael McNeil Forbes',
-    author_email='michael.forbes+pypim@gmail.com',
+    author_email='michael.forbes+pypi@gmail.com',
     description='Sphinx extension zopeext',
     long_description=__doc__,
     zip_safe=False,

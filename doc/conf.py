@@ -48,6 +48,6 @@ latex_elements = {
 latex_show_urls = 'footnote'
 
 intersphinx_mapping = {
-    'sphinx': ('http://sphinx.pocoo.org', None),
-    'zope': ('http://docs.zope.org/', None),
+    'sphinx': ('http://www.sphinx-doc.org/en/master/', None),
+    'zope': ('https://www.zope.org/', None),
     }
