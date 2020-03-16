@@ -16,13 +16,14 @@ PyPi Release
    - ``sphinxcontrib/zopeext/__init__.py``  must be updated
    - ``CHANGES``  must contain a summary of the changes
 3. Make sure all changes are committed, including the version number changes.
-4. Tag the sources with ``hg tag -m 'Tag zopeext-X.Y' zopeext-X.Y``.
+4. Tag the sources with ``hg tag -m 'Tag X.Y' X.Y``.
 5. Don't forget to ``hg push``.
 6. Temporarily modify the ``setup.cfg`` file to comment out the variables
    ``tag_build = dev`` and ``tag_date = true`` (do **not** commit this
    changes).
-7. Register and upload the new release ``python setup.py register sdist
-   upload``.
-8. Generate the documentation with ``make -C doc zip``.
-9. Upload the new documentation (``doc/_build/sphinxcontrib-zopeext-doc.zip``) to
+7. Build the package::
+   - ``python3 setup.py sdist bdist_wheel``
+8. Register and upload the new release ``twine upload dist/sphinxcontrib-zopeext-*.tar.gz``.
+9. Generate the documentation with ``make -C doc zip``.
+10. Upload the new documentation (``doc/_build/sphinxcontrib-zopeext-doc.zip``) to
    PyPi: http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=sphinxcontrib-zopeext

@@ -30,18 +30,20 @@ from setuptools import setup, find_packages
 import sphinxcontrib.zopeext
 
 requires = ['Sphinx>=0.6', 'zope.interface']
-
 setup_requires = ['pytest-runner']
-
-test_requires = [
-    'sphinx-testing',    
+tests_require = [
+    'sphinx-testing',
     'pytest>=2.8.1',
     'pytest-cov>=2.2.0',
     'pytest-flake8',
     'coverage',
     'flake8',
-    'pep8==1.5.7',  # Needed by flake8: dependency resolution issue if not pinned
+    'pep8',
 ]
+extras_require = {
+    'doc': ['sphinx-build'],
+    'test': tests_require,
+}
 
 # Remove NAME from sys.modules so that it gets covered in tests. See
 # http://stackoverflow.com/questions/11279096
@@ -78,6 +80,7 @@ setup(
     include_package_data=True,
     install_requires=requires,
     setup_requires=setup_requires,
-    tests_require=test_requires,
+    extras_require=extras_require,
+    tests_require=tests_require,
     namespace_packages=['sphinxcontrib'],
 )
