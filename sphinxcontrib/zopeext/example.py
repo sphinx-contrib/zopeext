@@ -22,10 +22,16 @@ class IMyInterface(Interface):
 
 @implementer(IMyInterface)
 class MyImplementation(object):
+    """Example
+
+    >>> a = MyImplementation(x=2.0)
+    >>> a.equals(2.0)
+    True
+    """
     _a = 1.0
-    
+
     def __init__(self, x):
-            self.x = x
+        self.x = x
 
     def equals(self, x):
         return self.x == x

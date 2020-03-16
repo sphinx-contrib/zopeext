@@ -49,6 +49,8 @@ from sphinx.locale import _
 
 import zope.interface.interface
 
+ALL = sphinx.ext.autodoc.ALL
+
 
 def interface_getattr(*v):
     """Behaves like `getattr` but for zope Interface objects which
@@ -111,7 +113,7 @@ class InterfaceDocumenter(sphinx.ext.autodoc.ClassDocumenter):
         obj = self.object
         names = sorted(obj.names(want_all))
         members = self.options.get('members', None)
-        if members:
+        if members and members is not ALL:
             names = [name for name in members if name in set(names)]
 
         # We exclude __init__ here since the arguments are rolled into the
