@@ -5,6 +5,7 @@ description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope
 readme = "README.rst"
 license = "BSD-2-Clause"
 authors = ["Michael McNeil Forbes <mforbes@alum.mit.edu>"]
+documentation = "https://zopeext.readthedocs.io/en/latest/"
 
 packages = [
     { include = "sphinxcontrib" },
@@ -12,10 +13,9 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.6.2,<4"
-#Sphinx = "^4.3.0"  # Needed for non_data_descriptor
-#Sphinx = "^3.4.2|^4.3.0"
 "zope.interface" = "^5.2.0"
-Sphinx = "^3.4.2|^4.3.0"
+Sphinx = ">=3.4.2,<5.0.0"
+sphinx-book-theme = {version = "^0.1.7", optional = true}
 
 [tool.poetry.dev-dependencies]
 sphinx-testing = "^1.0.1"
@@ -23,6 +23,9 @@ sphinx-autobuild = "^2021.3.14"
 pytest-cov = "^2.10.1"
 Sphinx = {extras = ["test"], version = "^3.4.2|^4.3.0"}
 sphinx-book-theme = "^0.1.7"
+
+[tool.poetry.extras]
+docs = ["sphinx-book-theme"]
 
 [build-system]
 requires = ["poetry-core>=1.0.3"]

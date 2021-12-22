@@ -1,14 +1,13 @@
 .. -*- rst -*- -*- restructuredtext -*-
-.. Note: this file is simplified without text roles so it displays on PyPI. See
-.. doc/README.rst for the correct information.
-   
+
 ==================
 zopeext for Sphinx
 ==================
 
 :author: Michael McNeil Forbes <mforbes@alum.mit.edu>
 
-This extension provides an `autointerface` directive for `Zope interfaces`_.
+This extension provides an :rst:dir:`autointerface` directive for `Zope
+interfaces`_.
 
 Requirements
 ============
@@ -21,16 +20,18 @@ Usage
 =====
 
 In the `build configuration file`_ (the ``conf.py`` in your Sphinx_
-documentation directory) add `sphinxcontrib.zopeext.autointerface` to your
+documentation directory) add :mod:`sphinxcontrib.zopeext.autointerface` to your
 ``extensions`` list::
 
    extensions = [..., 'sphinxcontrib.zopeext.autointerface', ...]
 
 
-Then, in your documentation, use `autointerface` as you would use
-`autoclass`.  You can refer to the interface with the ``:py:interface:`` role
-`example.IMyInterface` as you would use the ``:py:class:`` role to refer
-to the implementation `example.MyImplementation`:
+Then, in your documentation, use :rst:dir:`autointerface` as you would use
+:rst:dir:`autoclass`.  You can refer to the interface with the ``:py:interface:`` role
+:py:interface:`example.IMyInterface` as you would use the ``:py:class:`` role to refer
+to the implementation :py:class:`example.MyImplementation`.
+     
+Here is an example produced by the following code: 
 
 .. code-block:: ReST
 
@@ -38,6 +39,17 @@ to the implementation `example.MyImplementation`:
        :show-inheritance:
        :inherited-members:
      
+.. admonition:: Example (click on the "[source]" link at the right to see the code)
+
+   .. automodule:: example
+     :show-inheritance:
+     :inherited-members:
+
+.. note:: We have included the ``autointerface.css`` which simply adds the
+   following rule to give a green background for the interface::
+
+      dl.interface > dt { background-color: #33FF33; }
+
 One can also limit which members are displayed, just as you would with ``.. autoclass``:
 
 .. code-block:: ReST
@@ -46,6 +58,16 @@ One can also limit which members are displayed, just as you would with ``.. auto
        :members: x, equals
     .. autoclass:: example.MyImplementation
        :members: x, equals
+
+.. admonition:: Example (click on the "[source]" link at the right to see the code)
+    
+    .. autointerface:: example.IMyInterface
+       :members: x, equals
+       :noindex:
+    .. autoclass:: example.MyImplementation
+       :members: x, equals
+       :noindex:
+
 
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _build configuration file: http://sphinx.pocoo.org/config.html
