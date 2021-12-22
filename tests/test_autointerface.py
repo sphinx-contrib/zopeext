@@ -3,7 +3,7 @@ import os
 import sys
 
 # Add current directory to path so we can import the example.py file.
-sys.path.insert(0, os.path.abspath("."))
+sys.path.insert(0, os.path.abspath(__file__))
 
 import pytest
 
@@ -23,6 +23,13 @@ def test_sphinx_build(app, status, warning):
 
 
 _EXPECTED = [
+    """
+<script>
+$(document).ready(function() {
+  $('.interface').addClass('class');
+});
+</script>
+""",
     """
   <div class="section" id="the-example-module">
 <h1>The <a class="reference internal" href="#module-example" title="example"><code class="xref py py-mod docutils literal notranslate"><span class="pre">example</span></code></a> Module<a class="headerlink" href="#the-example-module" title="Permalink to this headline">¶</a></h1>

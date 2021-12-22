@@ -2,7 +2,19 @@
 
 This file describes user-visible changes between the extension versions.
 
-Version 0.2.3 (2020-15-03)
+Version 0.3.0 (2021-12-22)
+==========================
+
+* Major restructuring of code to work with poetry rather than setuptools.
+* Update and simplification of code to work with Sphinx >= 3.4.2.  Prior
+  versions relied on some private behaviour which is deprecated.  The new
+  version can now use the public API.
+* Resolves issue #1 by inserting a small javascript snippet that changes
+  ``class="py interface"`` to ``class="py interface class"`` so that themes
+  which don't provide support for styling interface (most of them) will
+  fallback to using the same format as a class.
+
+Version 0.2.4 (2020-03-15)
 ==========================
 * Fixed issue with :members: requesting ALL members.
 
