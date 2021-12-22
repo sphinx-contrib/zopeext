@@ -1,14 +1,17 @@
 The :mod:`example` Module
 =========================
 
+Here is a reference to the Interface: :py:interface:`example.IMyInterface`, and to the
+implementation: :py:class:`example.MyImplementation`.
+
 .. autosummary::
 
-   sphinxcontrib.zopeext.example
-   sphinxcontrib.zopeext.example.IMyInterface
-   sphinxcontrib.zopeext.example.MyImplementation
+   example
+   example.IMyInterface
+   example.MyImplementation
 
 
-.. automodule:: sphinxcontrib.zopeext.example
+.. automodule:: example
    :members:
 
 
@@ -18,33 +21,33 @@ We now check various options.
 
 * The following also contain private members like `_a`:
 
-  .. automodule:: sphinxcontrib.zopeext.example
+  .. automodule:: example
      :members:
      :private-members:
      :noindex:
 
 * Here is an explicit example of `autointerface`
 
-  .. autointerface:: sphinxcontrib.zopeext.example.IMyInterface
+  .. autointerface:: example.IMyInterface
      :members:
      :noindex:
 
-  .. autointerface:: sphinxcontrib.zopeext.example.IMySecondInterface
+  .. autointerface:: example.IMySecondInterface
      :members:
      :noindex:
      :show-inheritance:
 
-* Now with explicit members.
+* Now the interface with explicit members.
 
-  .. autointerface:: sphinxcontrib.zopeext.example.IMyInterface
+  .. autointerface:: example.IMyInterface
      :members: _a, equals
      :noindex:
 
      .. automethod:: __init__
 
-* Now with explicit members.
+* Now the class with explicit members.
 
-  .. autoclass:: sphinxcontrib.zopeext.example.MyImplementation
+  .. autoclass:: example.MyImplementation
      :members:
      :undoc-members:
      :noindex:

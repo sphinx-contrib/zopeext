@@ -142,7 +142,7 @@ class InterfaceDocumenter(ClassDocumenter):
             return False, [
                 (_name, obj.get(_name))
                 for _name in names
-                if obj.get(_name).class_ == self.object
+                if obj.get(_name).interface == self.object
             ]
 
     @staticmethod
