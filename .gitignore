@@ -1,0 +1,4 @@
+.nox/
+.pytest_cache/
+.coverage
+htmlcov/

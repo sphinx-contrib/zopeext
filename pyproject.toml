@@ -1,0 +1,59 @@
+[tool.poetry]
+name = "sphinxcontrib-zopeext"
+version = "0.2.5"
+description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope interfaces."
+readme = "README.rst"
+license = "BSD-2-Clause"
+authors = ["Michael McNeil Forbes <mforbes@alum.mit.edu>"]
+
+packages = [
+    { include = "sphinxcontrib" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.6.2,<4"
+#Sphinx = "^4.3.0"  # Needed for non_data_descriptor
+#Sphinx = "^3.4.2|^4.3.0"
+"zope.interface" = "^5.2.0"
+Sphinx = "^3.4.2|^4.3.0"
+
+[tool.poetry.dev-dependencies]
+sphinx-testing = "^1.0.1"
+sphinx-autobuild = "^2021.3.14"
+pytest-cov = "^2.10.1"
+Sphinx = {extras = ["test"], version = "^3.4.2|^4.3.0"}
+sphinx-book-theme = "^0.1.7"
+
+[build-system]
+requires = ["poetry-core>=1.0.3"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+"Bug Reports" = "https://github.com/sphinx-contrib/zopeext/issues"
+"Source" = "https://github.com/sphinx-contrib/zopeext"
+"Sphinx" = "https://www.sphinx-doc.org/"
+"Sphinx Autodoc" = "https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html"
+"Zope Interface" = "https://github.com/zopefoundation/zope.interface"
+
+######################################################################
+# PyTest
+[tool.pytest.ini_options]
+testpaths = [
+    #"src/sphinxcontrib/zopeext",
+    "tests",
+]
+addopts = [
+    "--doctest-modules",
+    "--cov=sphinxcontrib.zopeext",
+    "--cov-report=html",
+    "--cov-fail-under=95",
+    "--no-cov-on-fail",
+    "-x",
+    "--pdb",
+    #"--flake8",
+]
+
+doctest_optionflags = [
+    "ELLIPSIS",
+    "NORMALIZE_WHITESPACE",
+]

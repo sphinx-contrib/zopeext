@@ -31,3 +31,4 @@ PyPi Release
    Upload the new documentation (``doc/_build/sphinxcontrib-zopeext-doc.zip``) to
    PyPi:
    http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=sphinxcontrib-zopeext
+

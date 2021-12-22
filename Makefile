@@ -1,5 +1,8 @@
 test:
-	python setup.py test
+	poetry run pytest
+
+doc-server:
+	poetry run sphinx-autobuild --re-ignore '_build|_generated' doc doc/_build/html
 
 clean:
 	-rm -r .coverage
@@ -8,4 +11,4 @@ clean:
 	-rm -r dist
 	-rm -r build
 
-.PHONY: test clean
+.PHONY: test clean doc-server
