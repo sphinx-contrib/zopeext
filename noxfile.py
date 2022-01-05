@@ -14,7 +14,7 @@ sys.path.append(".")
 from noxutils import get_versions
 
 
-@session(python=["3.5", "3.6", "3.7", "3.8", "3.9"], reuse_venv=True)
+@session(python=["3.6", "3.7", "3.8", "3.9"], reuse_venv=True)
 @nox.parametrize("sphinx", get_versions("sphinx", "minor"))
 def test(session, sphinx):
     # nox_poetry uses the info in poetry.lock but you need to specify the test
@@ -25,8 +25,8 @@ def test(session, sphinx):
     session.run("pytest")
 
 
-@session(venv_backend="conda", python=["3.5", "3.6", "3.7", "3.8", "3.9"])
-def test_conda(session):
+@session(venv_backend="conda", python=["3.6", "3.7", "3.8", "3.9"])
+def _test_conda(session):
     # session.conda_env_update("environment.yml")
     # session.conda("env", "update", "--f", "environment.yml",
     #              conda="mamba", external=True)

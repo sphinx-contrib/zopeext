@@ -6,11 +6,15 @@
 """
 
 import sys
+import warnings
 
 from unittest.mock import Mock
 
+import sphinx
 from sphinx.ext.autodoc.directive import DocumenterBridge, process_documenter_options
 from sphinx.util.docutils import LoggingReporter
+
+from sphinxcontrib.zopeext.autointerface import logger
 
 import pytest
 
@@ -85,6 +89,7 @@ def test_classes(app):
     ]
 
 
+@pytest.mark.skipif(sphinx.version_info < (4, 1), reason="sphinx 4.1+ is required.")
 @pytest.mark.sphinx("html", testroot="zopeext-autointerface")
 def test_class_doc_from_class(app):
     options = {"members": None, "class-doc-from": "class"}
@@ -122,6 +127,7 @@ def test_class_doc_from_class(app):
     ]
 
 
+@pytest.mark.skipif(sphinx.version_info < (4, 1), reason="sphinx 4.1+ is required.")
 @pytest.mark.sphinx("html", testroot="zopeext-autointerface")
 def test_class_doc_from_init(app):
     options = {"members": None, "class-doc-from": "init"}
@@ -164,6 +170,7 @@ def test_class_doc_from_init(app):
     ]
 
 
+@pytest.mark.skipif(sphinx.version_info < (4, 1), reason="sphinx 4.1+ is required.")
 @pytest.mark.sphinx("html", testroot="zopeext-autointerface")
 def test_class_doc_from_both(app):
     options = {"members": None, "class-doc-from": "both"}
@@ -235,13 +242,35 @@ def test_interface_alias(app):
 
     app.connect("autodoc-process-docstring", autodoc_process_docstring)
     actual = do_autodoc(app, "interface", "target.interfaces.IAlias")
-    assert list(actual) == [
-        "",
-        ".. py:attribute:: IAlias",
-        "   :module: target.interfaces",
-        "",
-        "   alias of :py:obj:`target.interfaces.IMyInterface`",
-    ]
+
+    if sphinx.version_info < (4, 3):
+        assert list(actual) == [  # 4.2.0
+            "",
+            ".. py:attribute:: IAlias",
+            "   :module: target.interfaces",
+            "",
+            "   alias of :obj:`target.interfaces.IMyInterface`",
+        ]
+    elif sphinx.version_info < (4, 4, 0):
+        # Sphinx issue #9883
+        assert list(actual) == [
+            "",
+            ".. py:attribute:: IAlias",
+            "   :module: target.interfaces",
+            "",
+            "   alias of :py:obj:`target.interfaces.IMyInterface`",
+        ]
+    else:
+        assert list(actual) == [
+            "",
+            ".. py:attribute:: IAlias",
+            "   :module: target.interfaces",
+            "",
+            "   alias of :py:obj:`target.interfaces.IMyInterface`",
+            "",
+            "   Here is a doccomment for a docstring",
+        ]
+
     #### To Do: Why is this not `:py:interface:`?
     [
         "",
@@ -255,57 +284,86 @@ def test_interface_alias(app):
 @pytest.mark.sphinx("html", testroot="zopeext-autointerface")
 def test_interface_alias_having_doccomment(app):
     actual = do_autodoc(app, "interface", "target.interfaces.IOtherAlias")
-    assert list(actual) == [
-        "",
-        ".. py:attribute:: IOtherAlias",
-        "   :module: target.interfaces",
-        "",
-        "   Here is a doccomment for a docstring",
-        "",
-    ]
+    if sphinx.version_info < (4, 1, 2):
+        assert list(actual) == [  # 3.4.3
+            "",
+            ".. py:attribute:: IOtherAlias",
+            "   :module: target.interfaces",
+            "",
+            "   Here is a doccomment for a docstring",
+            "",
+            "   alias of :obj:`target.interfaces.IMyInterface`",
+        ]
+    elif sphinx.version_info < (4, 2):
+        assert list(actual) == [  # 4.1.2
+            "",
+            ".. py:attribute:: IOtherAlias",
+            "   :module: target.interfaces",
+            "",
+            "   Here is a doccomment for a docstring",
+            "",
+        ]
+    else:
+        assert list(actual) == [  # 4.3.2
+            "",
+            ".. py:attribute:: IOtherAlias",
+            "   :module: target.interfaces",
+            "",
+            "   Here is a doccomment for a docstring",
+            "",
+        ]
+        # I don't know why later versions do not include the alias...
 
 
 @pytest.mark.sphinx("html", testroot="zopeext-autointerface")
-def test_issue_3_missing_member(app):
-    """Regression test for issue #3"""
+def test_missing_member(app):
+    """Regression test for issue #3.
 
-    options = {"members": "missing_member", "class-doc-from": "both"}
-    actual = do_autodoc(app, "interface", "target.interfaces.IMyInterface", options)
-    assert list(actual) == [
-        "",
-        ".. py:interface:: IMyInterface(x)",
-        "   :module: target.interfaces",
-        "",
-        "   This is an example of an interface.",
-        "",
-        "   The constructor should set the attribute `x`.",
-        "",
-        "   Parameters",
-        "   ----------",
-        "   x : float",
-        "       The parameter `x`.",
-        "",
-        "",
-        "   .. py:attribute:: IMyInterface.x",
-        "      :module: target.interfaces",
-        "",
-        "      A required attribute of the interface",
-        "",
-        "",
-        "   .. py:method:: IMyInterface.equals(x)",
-        "      :module: target.interfaces",
-        "",
-        "      A required method of the interface.",
-        "",
-        "      Parameters",
-        "      ----------",
-        "      x : float",
-        "          The parameter `x`.",
-        "",
-        "      Notes",
-        "      -----",
-        "",
-        "      The argument `self` is not specified as part of the interface and",
-        "      should be omitted, even though it is required in the implementation.",
-        "",
-    ]
+    A member "missing_member" is explicitly requested, but does not exist.
+    """
+    old_warning = logger.warning
+
+    def warning(msg, type):
+        old_warning(msg, type=type)
+        warnings.warn(msg)
+
+    logger.warning = warning
+
+    options = {"members": "missing_member,x"}
+    with warnings.catch_warnings(record=True) as w:
+        actual = do_autodoc(app, "interface", "target.interfaces.IMyInterface", options)
+
+    if sphinx.version_info < (3, 5):
+        assert list(actual) == [
+            "",
+            ".. py:interface:: IMyInterface(x)",
+            "   :module: target.interfaces",
+            "",
+            "   This is an example of an interface.",
+            "",
+            "",
+            "   .. py:attribute:: IMyInterface.x",
+            "      :module: target.interfaces",
+            "",
+        ]
+    else:
+        assert list(actual) == [
+            "",
+            ".. py:interface:: IMyInterface(x)",
+            "   :module: target.interfaces",
+            "",
+            "   This is an example of an interface.",
+            "",
+            "",
+            "   .. py:attribute:: IMyInterface.x",
+            "      :module: target.interfaces",
+            "",
+            "      A required attribute of the interface",
+            "",
+        ]
+
+    assert len(w) == 1
+    assert (
+        "missing attribute missing_member in interface target.interfaces.IMyInterface"
+        in str(w[0].message)
+    )

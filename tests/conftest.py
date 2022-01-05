@@ -3,7 +3,13 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
-import importlib.metadata
+try:
+    # importlib.metadata is present in Python 3.8 and later
+    import importlib.metadata as importlib_metadata
+except ImportError:
+    # use the shim package importlib-metadata pre-3.8
+    import importlib_metadata as importlib_metadata
+
 import os
 import shutil
 
@@ -30,7 +36,7 @@ def rootdir():
 def pytest_report_header(config):
     header = "libraries: Sphinx-%s, zope.interface-%s, sphinxcontrib.zopeext-%s" % (
         sphinx.__display_version__,
-        importlib.metadata.version("zope.interface"),
+        importlib_metadata.version("zope.interface"),
         sphinxcontrib.zopeext.__version__,
     )
     if hasattr(config, "_tmp_path_factory"):

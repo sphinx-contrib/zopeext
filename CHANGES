@@ -2,9 +2,13 @@
 
 This file describes user-visible changes between the extension versions.
 
+Version 0.3.1 (2022-01-05)
+==========================
+* Resolves issue #3 (bug when missing members were requested).
+* Added more extensive testing following Sphinx's examples.
+
 Version 0.3.0 (2021-12-22)
 ==========================
-
 * Major restructuring of code to work with poetry rather than setuptools.
 * Update and simplification of code to work with Sphinx >= 3.4.2.  Prior
   versions relied on some private behaviour which is deprecated.  The new

@@ -55,8 +55,8 @@ import zope.interface.interface
 from sphinx.ext.autodoc import (
     ClassDocumenter,
     ObjectMembers,
-    # logger,
-    # __,
+    logger,
+    __,
 )
 from sphinx.domains.python import PyXRefRole
 
@@ -138,7 +138,7 @@ class InterfaceDocumenter(ClassDocumenter):
                     logger.warning(
                         __("missing attribute %s in interface %s")
                         % (name, self.fullname),
-                        type="autodoc",
+                        type="autointerface",
                     )
             return False, selected
         elif self.options.inherited_members:
