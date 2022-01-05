@@ -263,3 +263,49 @@ def test_interface_alias_having_doccomment(app):
         "   Here is a doccomment for a docstring",
         "",
     ]
+
+
+@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+def test_issue_3_missing_member(app):
+    """Regression test for issue #3"""
+
+    options = {"members": "missing_member", "class-doc-from": "both"}
+    actual = do_autodoc(app, "interface", "target.interfaces.IMyInterface", options)
+    assert list(actual) == [
+        "",
+        ".. py:interface:: IMyInterface(x)",
+        "   :module: target.interfaces",
+        "",
+        "   This is an example of an interface.",
+        "",
+        "   The constructor should set the attribute `x`.",
+        "",
+        "   Parameters",
+        "   ----------",
+        "   x : float",
+        "       The parameter `x`.",
+        "",
+        "",
+        "   .. py:attribute:: IMyInterface.x",
+        "      :module: target.interfaces",
+        "",
+        "      A required attribute of the interface",
+        "",
+        "",
+        "   .. py:method:: IMyInterface.equals(x)",
+        "      :module: target.interfaces",
+        "",
+        "      A required method of the interface.",
+        "",
+        "      Parameters",
+        "      ----------",
+        "      x : float",
+        "          The parameter `x`.",
+        "",
+        "      Notes",
+        "      -----",
+        "",
+        "      The argument `self` is not specified as part of the interface and",
+        "      should be omitted, even though it is required in the implementation.",
+        "",
+    ]
