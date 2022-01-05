@@ -51,7 +51,7 @@ addopts = [
     "--cov-report=html",
     "--cov-fail-under=95",
     "--no-cov-on-fail",
-    "-x",
+    #"-x",
     "--pdb",
     #"--flake8",
 ]

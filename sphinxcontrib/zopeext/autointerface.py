@@ -42,7 +42,7 @@ Implementation Details
    setup
 
 """
-from typing import Any, Dict, Tuple, List
+from typing import Any, Dict, Tuple
 
 import sphinx.ext.autodoc
 import sphinx.domains.python
@@ -52,7 +52,12 @@ from sphinx.application import Sphinx
 
 import zope.interface.interface
 
-from sphinx.ext.autodoc import ALL, INSTANCEATTR, ClassDocumenter, ObjectMembers
+from sphinx.ext.autodoc import (
+    ClassDocumenter,
+    ObjectMembers,
+    # logger,
+    # __,
+)
 from sphinx.domains.python import PyXRefRole
 
 from . import __version__
