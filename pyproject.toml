@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinxcontrib-zopeext"
-version = "0.3.0"
+version = "0.3.1"
 description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope interfaces."
 readme = "README.rst"
 license = "BSD-2-Clause"
@@ -15,6 +15,7 @@ packages = [
 python = ">=3.6.2,<4"
 "zope.interface" = "^5.2.0"
 Sphinx = ">=3.4.2,<5.0.0"
+importlib-metadata = {version = "^4.8.1", optional = true}
 sphinx-book-theme = {version = "^0.1.7", optional = true}
 
 [tool.poetry.dev-dependencies]
@@ -23,6 +24,7 @@ sphinx-autobuild = "^2021.3.14"
 pytest-cov = "^2.10.1"
 Sphinx = {extras = ["test"], version = "^3.4.2|^4.3.0"}
 sphinx-book-theme = "^0.1.7"
+importlib-metadata = "^4.8.1"
 
 [tool.poetry.extras]
 docs = ["sphinx-book-theme"]
@@ -49,9 +51,9 @@ addopts = [
     "--doctest-modules",
     "--cov=sphinxcontrib.zopeext",
     "--cov-report=html",
-    "--cov-fail-under=95",
+    "--cov-fail-under=85",
     "--no-cov-on-fail",
-    "-x",
+    #"-x",
     "--pdb",
     #"--flake8",
 ]
