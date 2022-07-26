@@ -47,7 +47,7 @@ from typing import Any, Dict, Tuple
 import sphinx.ext.autodoc
 import sphinx.domains.python
 import sphinx.roles
-from sphinx.locale import _
+from sphinx.locale import _, __
 from sphinx.application import Sphinx
 
 import zope.interface.interface
@@ -56,7 +56,6 @@ from sphinx.ext.autodoc import (
     ClassDocumenter,
     ObjectMembers,
     logger,
-    __,
 )
 from sphinx.domains.python import PyXRefRole
 
@@ -210,13 +209,13 @@ class InterfaceAttributeDocumenter(sphinx.ext.autodoc.AttributeDocumenter):
         self.non_data_descriptor = False
         super().add_directive_header(sig)
 
-    def add_content(self, more_content, no_docstring=False):
+    def add_content(self, more_content):
         # Correct behavior of AttributeDocumenter.add_content.
         # Don't run the source analyzer... just get the documentation
         self.analyzer = None
         # Treat attributes as datadescriptors since they have docstrings
         self.non_data_descriptor = False
-        super().add_content(more_content, no_docstring)
+        super().add_content(more_content)
 
 
 class InterfaceMethodDocumenter(sphinx.ext.autodoc.MethodDocumenter):

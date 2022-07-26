@@ -14,7 +14,7 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.6.2,<4"
 "zope.interface" = "^5.2.0"
-Sphinx = ">=3.4.2,<5.0.0"
+Sphinx = ">=3.4.2,<6.0.0"
 importlib-metadata = {version = "^4.8.1", optional = true}
 sphinx-book-theme = {version = "^0.1.7", optional = true}
 
