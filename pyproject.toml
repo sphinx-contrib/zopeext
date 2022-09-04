@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sphinxcontrib-zopeext"
-version = "0.3.2"
+version = "0.3.3"
 description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope interfaces."
 readme = "README.rst"
 license = "BSD-2-Clause"

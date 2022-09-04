@@ -2,6 +2,11 @@
 
 This file describes user-visible changes between the extension versions.
 
+Version 0.3.3 (2022-09-04)
+==========================
+* Resolves issue #7, support for Sphinx 5.x. (Thanks to Jerry James @jamesjer).
+* Better test coverage for different version combinations.
+
 Version 0.3.2 (2022-01-05)
 ==========================
 * Resolves issue #5 by removing sphinxcontrib/__init__.py which could be installed
