@@ -7,7 +7,20 @@ Maintainer documentation
 This document contains notes for developers and packagers. End users probably
 want to read ``README``.
 
+Testing
+=======
+Testing requires nox_, poetry_, and nox-poetry_ as external tools.  These can be
+installed using pipx_::
 
+    pipx install poetry
+    pipx install nox
+    pipx inject nox nox-poetry poetry
+
+The complete test suite can then be run with::
+
+    nox
+
+    
 PyPi Release
 ============
 
@@ -32,3 +45,7 @@ PyPi Release
    PyPi:
    http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=sphinxcontrib-zopeext
 
+.. _nox: https://nox.thea.codes/en/stable/config.html
+.. _poetry: https://python-poetry.org/
+.. _nox-poetry: https://github.com/cjolowicz/nox-poetry
+.. _pipx: https://pypa.github.io/pipx/

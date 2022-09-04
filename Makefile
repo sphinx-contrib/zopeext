@@ -1,5 +1,5 @@
 test:
-	poetry run pytest
+	nox
 
 doc-server:
 	poetry run sphinx-autobuild --re-ignore '_build|_generated' doc doc/_build/html

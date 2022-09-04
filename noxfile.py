@@ -13,9 +13,14 @@ import nox
 sys.path.append(".")
 from noxutils import get_versions
 
-
-@session(python=["3.6", "3.7", "3.8", "3.9"], reuse_venv=True)
-@nox.parametrize("sphinx", get_versions("sphinx", "minor"))
+python_versions = ["3.6", "3.7", "3.8", "3.9", "3.10"]
+@session(reuse_venv=True)
+@nox.parametrize("python,sphinx",
+                 sum([[(python, sphinx)
+                       for sphinx in get_versions("sphinx", "minor", python=python)]
+                      for python in python_versions],
+                     []),
+                 )
 def test(session, sphinx):
     # nox_poetry uses the info in poetry.lock but you need to specify the test
     # dependencies here:
