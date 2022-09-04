@@ -251,14 +251,21 @@ def test_interface_alias(app):
             "",
             "   alias of :obj:`target.interfaces.IMyInterface`",
         ]
-    elif sphinx.version_info < (4, 4, 0):
-        # Sphinx issue #9883
+    elif False and sphinx.version_info < (4, 4, 0):
         assert list(actual) == [
             "",
             ".. py:attribute:: IAlias",
             "   :module: target.interfaces",
             "",
             "   alias of :py:obj:`target.interfaces.IMyInterface`",
+        ]
+    elif sphinx.version_info >= (5, 0, 2):
+        assert list(actual) == [
+            "",
+            ".. py:attribute:: IAlias",
+            "   :module: target.interfaces",
+            "",
+            "   alias of :py:obj:`~target.interfaces.IMyInterface`"
         ]
     else:
         assert list(actual) == [
@@ -267,8 +274,6 @@ def test_interface_alias(app):
             "   :module: target.interfaces",
             "",
             "   alias of :py:obj:`target.interfaces.IMyInterface`",
-            "",
-            "   Here is a doccomment for a docstring",
         ]
 
     #### To Do: Why is this not `:py:interface:`?
