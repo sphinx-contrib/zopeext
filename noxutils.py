@@ -1,4 +1,9 @@
-"""
+"""Nox Utilities
+
+This module provides the get_version() function which provides an iterable list of
+versions that the package claims to support.  These can be used in the nox framework to
+specifically test against these versions.
+```
 
 From https://github.com/brechtm/rinohtype/blob/master/noxutil.py
 https://github.com/cjolowicz/nox-poetry/discussions/289
