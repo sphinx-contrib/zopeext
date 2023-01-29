@@ -1,39 +1,49 @@
-"""
-
-For a discussion about the parameterized versions of Sphinx, see
-
-https://github.com/cjolowicz/nox-poetry/discussions/289
-
-"""
-import sys
-
-from nox_poetry import session
+import os
 import nox
 
-sys.path.append(".")
-from noxutils import get_versions
 
-python_versions = ["3.6", "3.7", "3.8", "3.9", "3.10"]
-@session(reuse_venv=True)
-@nox.parametrize("python,sphinx",
-                 sum([[(python, sphinx)
-                       for sphinx in get_versions("sphinx", "minor", python=python)]
-                      for python in python_versions],
-                     []),
-                 )
+def _has_venv(session):
+    return not isinstance(session.virtualenv, nox.virtualenv.PassthroughEnv)
+
+
+python_versions = ["3.7", "3.8", "3.9", "3.10", "3.11"]
+sphinx_versions = {
+    _p: ["4.5.0", "5.3.0", "6.1.3"] for _p in python_versions
+}
+
+# These are in the full matrix, but excluded by the constraints in pyproject.toml.  Not
+# sure how to exclude these programmatically yet with pdm.
+# https://github.com/pdm-project/pdm/issues/259#issuecomment-1407595572
+excluded_versions = {
+    ("3.6", "6.1.3"),
+    ("3.7", "6.1.3"),
+    ("3.10", "3.5.4"),
+    ("3.11", "3.5.4")
+}
+
+python_sphinx = sum(
+    [
+        [(python, sphinx) for sphinx in sphinx_versions[python]
+         if (python, sphinx) not in excluded_versions
+         ]
+        for python in python_versions
+    ],
+    [],
+)
+
+
+@nox.session(reuse_venv=True)
+@nox.parametrize("python,sphinx", python_sphinx)
 def test(session, sphinx):
-    # nox_poetry uses the info in poetry.lock but you need to specify the test
-    # dependencies here:
-    session.install("sphinx-testing", "pytest-cov", ".")
-    # Override sphinx, but using get_versions() makes sure this is consistent
-    session.run("pip", "install", f"sphinx=={sphinx}")
-    session.run("pytest")
+    """Run the test suite."""
 
-
-@session(venv_backend="conda", python=["3.6", "3.7", "3.8", "3.9"])
-def _test_conda(session):
-    # session.conda_env_update("environment.yml")
-    # session.conda("env", "update", "--f", "environment.yml",
-    #              conda="mamba", external=True)
-    session.install(".[test]")
-    session.run("pytest")
+    # If a virtual environment is used, configure PDM appropriately and install
+    # If --no-venv is used, the install step is skipped
+    if _has_venv(session):
+        #os.environ.update({"PDM_USE_VENV": "1", "PDM_IGNORE_SAVED_PYTHON": "1"})
+        #session.run("pdm", "install", "-G", "tests", external=True)
+        #session.run("pdm", "install", "--dev", external=True)
+        #session.run("pdm", "run", "pip", "install", f"sphinx[test]=={sphinx}",
+        #external=True)
+        session.install(".[test]", f"sphinx[test]=={sphinx}")
+    session.run("pytest", "tests")

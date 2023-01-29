@@ -53,6 +53,66 @@ PyPi Release
    PyPi:
    http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=sphinxcontrib-zopeext
 
+PDM
+===
+
+Here is how I switched from Poetry to PDM:
+
+```bash
+pdm init
+Creating a pyproject.toml for PDM...
+Please enter the Python interpreter to use
+0. /data/apps/conda_arm64/envs/work/bin/python (3.9)
+1. /opt/local/bin/python3.11 (3.11)
+2. /opt/local/bin/python3.10 (3.10)
+3. /opt/local/bin/python3.9 (3.9)
+4. /data/apps/conda_arm64/envs/work/bin/python3.9 (3.9)
+5. /usr/bin/python3 (3.9)
+6. /opt/local/bin/python3.8 (3.8)
+7. /opt/local/bin/python3.7m (3.7)
+8. /opt/local/bin/python3.7 (3.7)
+9. /Volumes/Data/apps/pipx/venvs/pdm/bin/python (3.9)
+Please select (0): .2   
+Using Python interpreter: /opt/local/bin/python3.10 (3.10)
+Would you like to create a virtualenv with /opt/local/bin/python3.10? [y/n] (y): y
+Virtualenv is created successfully at /Users/mforbes/current/zopeext_pdm/.venv
+Is the project a library that will be uploaded to PyPI [y/n] (n): y
+Project name (zopeext_pdm): sphinxcontrib-zopeext
+Project version (0.1.0): 0.3.3
+Project description (): Provides sphinxcontrib.zopeext.autointerface for documenting Zope interfaces.
+Which build backend to use?
+0. pdm-pep517
+1. setuptools
+2. flit
+3. hatchling
+4. pdm-backend
+Please select (0): 4
+License(SPDX name) (MIT): BSD-2-Clause
+Author name (Michael McNeil Forbes): 
+Author email (michael.forbes+numpy@gmail.com): mforbes@alum.mit.edu
+Python requires('*' to allow any) (>=3.10): >=3.6.2
+Changes are written to pyproject.toml.
+```
+
+After this, I needed to change the readme file from "README.MAINTAINER" (picked up by
+mistake) to "README.rst".
+
+```bash
+pdm add zope.interface Sphinx
+pdm add -d sphinx-testing pytest-cov sphinx-autobuild Sphinx[test] sphinx-book-theme importlib-metadata
+```
+
+Our current version of `noxfile.py` was pretty heavily integrated with Poetry: we need
+to fix that.  Not exactly sure: see
+
+* https://github.com/pdm-project/pdm/issues/259#issuecomment-1407595572
+
+For now, we manually code the versions tested.
+
+```bash
+mv noxfile.py noxfile_.py
+```
+
 .. _nox: https://nox.thea.codes/en/stable/config.html
 .. _poetry: https://python-poetry.org/
 .. _nox-poetry: https://github.com/cjolowicz/nox-poetry

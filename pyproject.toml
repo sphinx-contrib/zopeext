@@ -1,47 +1,47 @@
-[tool.poetry]
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "sphinx-testing>=1.0.1",
+    "pytest-cov>=4.0.0",
+    #'Sphinx[test] >= 6.1.3; python_version >= "3.8"',
+    'importlib-metadata>=4.8.3; python_version < "3.8"',
+    'pip>=21.3.1 ; python_version < "3.7"',
+    'pip>=22.2.1 ; python_version >= "3.7"',
+    #'sphinxcontrib-applehelp>=1.0.4; python_version >= "3.8"',
+    #'sphinxcontrib-htmlhelp>=2.0.1; python_version >= "3.8"',
+    # The following fixes a latex error... but only works for some versions of Sphinx,
+    # and python does not seem to support conditional dependencies.
+    #'docutils<0.20,>=0.14',
+    #'docutils >= 0.19; python_version >= "3.8"',
+    "sphinx-book-theme>=0.0.39",
+    "sphinx-autobuild>=2021.3.14",
+]
+
+[project]
 name = "sphinxcontrib-zopeext"
-version = "0.3.3"
+version = "0.4.0.dev0"
 description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope interfaces."
+authors = [
+    {name = "Michael McNeil Forbes", email = "mforbes@alum.mit.edu"},
+]
+dependencies = [
+    'zope.interface>=5.5.2',
+    'Sphinx >= 4.5.0',
+]
+requires-python = ">=3.7"
 readme = "README.rst"
-license = "BSD-2-Clause"
-authors = ["Michael McNeil Forbes <mforbes@alum.mit.edu>"]
-documentation = "https://zopeext.readthedocs.io/en/latest/"
+license = {text = "BSD-2-Clause"}
 
-packages = [
-    { include = "sphinxcontrib" },
+[project.optional-dependencies]
+test = [
+    'importlib-metadata>=4.8.3; python_version < "3.8"',
+    'pip>=22.2.1',
+    'pytest-cov>=4.0.0',
 ]
-
-[tool.poetry.dependencies]
-python = ">=3.6.2,<4"
-"zope.interface" = "^5.2.0"
-Sphinx = [
-  {version = ">=3.4.2,<6.0.0", python = "<3.9"},
-  {version = ">=3.4.2,!=3.5.*,!=4.0.*,!=4.1.*,<6.0.0", python = ">=3.10"}
-]
-importlib-metadata = {version = ">=4.8.1,<7.0", optional = true}
-sphinx-book-theme = {version = "^0.1.7", optional = true}
-
-[tool.poetry.dev-dependencies]
-sphinx-testing = "^1.0.1"
-sphinx-autobuild = "^2021.3.14"
-pytest-cov = "^2.10.1"
-Sphinx = {extras = ["test"], version = "^3.4.2|^4.3.0"}
-sphinx-book-theme = "^0.1.7"
-importlib-metadata = ">=4.8.1,<7.0"
-
-[tool.poetry.extras]
-docs = ["sphinx-book-theme"]
 
 [build-system]
-requires = ["poetry-core>=1.0.3"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.urls]
-"Bug Reports" = "https://github.com/sphinx-contrib/zopeext/issues"
-"Source" = "https://github.com/sphinx-contrib/zopeext"
-"Sphinx" = "https://www.sphinx-doc.org/"
-"Sphinx Autodoc" = "https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html"
-"Zope Interface" = "https://github.com/zopefoundation/zope.interface"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 ######################################################################
 # PyTest

@@ -4,7 +4,6 @@
 
     Test the zopeext.
 """
-
 import sys
 import warnings
 

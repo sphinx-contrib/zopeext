@@ -10,5 +10,6 @@ clean:
 	-rm -r sphinxcontrib_zopeext.egg-info
 	-rm -r dist
 	-rm -r build
+	-find . -name "__pycache__" -exec $(RM) -r {} +
 
 .PHONY: test clean doc-server
