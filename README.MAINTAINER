@@ -31,8 +31,8 @@ PyPi Release
    - ``CHANGES``  must contain a summary of the changes
 3. Make sure all changes are committed, including the version number changes.
 4. Tag the sources with ``hg tag -m 'X.Y'``.
-5. Don't forget to ``hg push -r 'X.Y'``.  (You need to explicitly push the tag or else
-   the corresponding git tag will not get pushed.)
+5. Don't forget to ``hg push -r main -r 'X.Y'``.  (You need to explicitly push the tag
+   or else the corresponding git tag will not get pushed.)
 6. Temporarily modify the ``setup.cfg`` file to comment out the variables
    ``tag_build = dev`` and ``tag_date = true`` (do **not** commit this
    changes).
