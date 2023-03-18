@@ -30,17 +30,23 @@ PyPi Release
    - ``pyproject.toml``  must be updated
    - ``CHANGES``  must contain a summary of the changes
 3. Make sure all changes are committed, including the version number changes.
-4. Tag the sources with ``hg tag -m 'X.Y'``.
-5. Don't forget to ``hg push -r main -r 'X.Y'``.  (You need to explicitly push the tag
+4. Tag the sources with ``hg tag X.Y`.
+5. Don't forget to ``hg push -r main -r X.Y``.  (You need to explicitly push the tag
    or else the corresponding git tag will not get pushed.)
 6. Temporarily modify the ``setup.cfg`` file to comment out the variables
    ``tag_build = dev`` and ``tag_date = true`` (do **not** commit this
    changes).
+7. Run `pdm build`.
+8. Run `pdm publish`.
+
+(The following are old need updates.
+
 7. Run `poetry build`.
 8. Run `poetry publish`.
 
    You may need to first establish your credentials.  See
    https://python-poetry.org/docs/repositories/#configuring-credentials
+
 
 7. Register and upload the new release ``twine upload dist/sphinxcontrib-zopeext-*.tar.gz``.
 8. Generate the documentation with ``make -C doc zip``.  (Note: you

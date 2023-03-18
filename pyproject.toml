@@ -19,7 +19,7 @@ dev = [
 
 [project]
 name = "sphinxcontrib-zopeext"
-version = "0.4.0"
+version = "0.4.0.dev0"
 description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope interfaces."
 authors = [
     {name = "Michael McNeil Forbes", email = "mforbes@alum.mit.edu"},
