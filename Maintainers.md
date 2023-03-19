@@ -1,5 +1,10 @@
 # Maintainer documentation
 
+[![Test badge][]][GitHub Tests Workflow]
+
+[Test badge]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml/badge.svg>
+[GitHub Tests Workflow]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml>
+
 This document contains notes for developers and packagers. End users probably want to
 read `README`. 
 
