@@ -5,9 +5,18 @@ zopeext for Sphinx
 ==================
 
 [![Test badge][]][GitHub Tests Workflow]
+[![PyPi version badge][]][PyPi badge link]
+[![GitHub version badge][]][GitHub badge link]
+[![Coverage badge][]][Coverage link]
 
 [Test badge]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml/badge.svg>
 [GitHub Tests Workflow]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml>
+[PyPi version badge]: <https://badge.fury.io/py/sphinxcontrib-zopeext.svg>
+[PyPi badge link]: <https://badge.fury.io/py/sphinxcontrib-zopeext>
+[GitHub version badge]: <https://badge.fury.io/gh/sphinx-contrib%2Fzopeext.svg>
+[GitHub badge link]: <https://badge.fury.io/gh/sphinx-contrib%2Fzopeext>
+[Coverage badge]: <https://coveralls.io/repos/github/sphinx-contrib/zopeext/badge.svg?branch=main>
+[Coverage link]: <https://coveralls.io/github/sphinx-contrib/zopeext?branch=main>
 
 
 This extension provides an `autointerface` directive for [Zope interfaces][].

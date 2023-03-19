@@ -11,7 +11,7 @@ dependencies = [
     'Sphinx >= 4.5.0',
 ]
 requires-python = ">=3.7"
-readme = "README.rst"
+readme = "README.md"
 license = {text = "BSD-2-Clause"}
 
 [project.optional-dependencies]
@@ -58,3 +58,9 @@ doctest_optionflags = [
     "ELLIPSIS",
     "NORMALIZE_WHITESPACE",
 ]
+
+######################################################################
+# Coverage
+[tool.coverage.run]
+# https://github.com/marketplace/actions/coveralls-python#coveragepy-configuration
+relative_files = true
