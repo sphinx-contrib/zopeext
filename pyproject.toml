@@ -1,4 +1,5 @@
 [tool.pdm]
+
 [project]
 name = "sphinxcontrib-zopeext"
 version = "0.4.0.dev0"
@@ -6,13 +7,46 @@ description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope
 authors = [
     {name = "Michael McNeil Forbes", email = "mforbes@alum.mit.edu"},
 ]
+
+# These are the required metadata tags.  Although they could be used to dynamically
+# update the trove classifiers, as per PEP-621, this is forbidden by the standard.
+# Thus, standard compliant tools like PDM do not do this (in contrast to e.g. Poetry).
+#
+#   https://peps.python.org/pep-0621/#allow-tools-to-add-extend-data
+#
+# Thus, don't forget to update the trove classifiers if you changce these!
+requires-python = ">=3.7"
+license = {text = "BSD-2-Clause"}
+
 dependencies = [
     'zope.interface>=5.5.2',
     'Sphinx >= 4.5.0',
 ]
-requires-python = ">=3.7"
 readme = "README.md"
-license = {text = "BSD-2-Clause"}
+
+# See comment above about requires-python and license.
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: BSD License",
+    "Development Status :: 4 - Beta",
+    "Framework :: Sphinx :: Extension",
+    "Framework :: Zope",
+    "Topic :: Documentation",
+    "Topic :: Documentation :: Sphinx",
+]
+
+[project.urls]
+Homepage = "https://github.com/sphinx-contrib/zopeext/"
+Repository = "https://github.com/sphinx-contrib/zopeext/"
+Documentation = "https://zopeext.readthedocs.io/en/latest/"
+Changelog = "https://zopeext.readthedocs.io/en/latest/#changelog"
 
 [project.optional-dependencies]
 test = [

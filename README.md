@@ -8,6 +8,7 @@ zopeext for Sphinx
 [![PyPi version badge][]][PyPi badge link]
 [![GitHub version badge][]][GitHub badge link]
 [![Coverage badge][]][Coverage link]
+[![Documentation status badge][]][Documentation link]
 
 [Test badge]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml/badge.svg>
 [GitHub Tests Workflow]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml>
@@ -17,7 +18,16 @@ zopeext for Sphinx
 [GitHub badge link]: <https://badge.fury.io/gh/sphinx-contrib%2Fzopeext>
 [Coverage badge]: <https://coveralls.io/repos/github/sphinx-contrib/zopeext/badge.svg?branch=main>
 [Coverage link]: <https://coveralls.io/github/sphinx-contrib/zopeext?branch=main>
+[Documentation status badge]: <https://readthedocs.org/projects/zopeext/badge/?version=latest> 
+[Documentation link]:  <https://zopeext.readthedocs.io/en/latest/?badge=latest>
 
+![PyPI](https://img.shields.io/pypi/v/sphinxcontrib-zopeext?color=blue&logo=python&logoColor=FBE072)
+
+
+https://img.shields.io/pypi/pyversions/coverage.svg?logo=python&logoColor=FBE072
+
+https://img.shields.io/pypi/v/sphinxcontrib-zopeext.sgv?logo=python&logoColor=FBE072
+sphinxcontrib-zopeext
 
 This extension provides an `autointerface` directive for [Zope interfaces][].
 

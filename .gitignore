@@ -4,3 +4,4 @@
 htmlcov/
 build/
 pdm.lock
+_tmp/
