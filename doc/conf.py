@@ -30,7 +30,7 @@ source_suffix = ".rst"
 # General information about the project.
 project = "sphinxcontrib-zopeext"
 author = "Michael McNeil Forbes"
-copyright = "2009-2021, " + author
+copyright = "2009-2023, " + author
 version = sphinxcontrib.zopeext.__version__
 release = version
 
