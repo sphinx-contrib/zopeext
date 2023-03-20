@@ -1,4 +1,5 @@
-[tool.pdm]
+[tool.pdm.build]
+includes = ["src/sphinxcontrib"]
 
 [project]
 name = "sphinxcontrib-zopeext"
