@@ -1,12 +1,25 @@
 # Maintainer documentation
 
 [![Test badge][]][GitHub Tests Workflow]
+[![PyPi version badge][]][PyPi badge link]
+[![GitHub version badge][]][GitHub badge link]
+[![Coverage badge][]][Coverage link]
+[![Documentation status badge][]][Documentation link]
 
 [Test badge]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml/badge.svg>
 [GitHub Tests Workflow]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml>
+[PyPi version badge]: <https://badge.fury.io/py/sphinxcontrib-zopeext.svg>
+[PyPi badge link]: <https://badge.fury.io/py/sphinxcontrib-zopeext>
+[GitHub version badge]: <https://badge.fury.io/gh/sphinx-contrib%2Fzopeext.svg>
+[GitHub badge link]: <https://badge.fury.io/gh/sphinx-contrib%2Fzopeext>
+[Coverage badge]: <https://coveralls.io/repos/github/sphinx-contrib/zopeext/badge.svg?branch=main>
+[Coverage link]: <https://coveralls.io/github/sphinx-contrib/zopeext?branch=main>
+[Documentation status badge]: <https://readthedocs.org/projects/zopeext/badge/?version=latest> 
+[Documentation link]:  <https://zopeext.readthedocs.io/en/latest/?badge=latest>
 
 This document contains notes for developers and packagers. End users probably want to
-read `README`. 
+read [`README.md`](README.md). 
+
 
 ## TL;DR
 
@@ -46,42 +59,56 @@ that these are available for [nox][] to use.
 ## PyPi Release
 
 1.  Make sure the repository is up-to date.
-2.  Ensure the version is incremented:
-    -   `sphinxcontrib/zopeext/__init__.py` must be updated
-    -   `pyproject.toml` must be updated
+2.  (Optional) Make a PR on GitHub.  I do it in the following steps (using [Hg-Git][]):
+
+    ```bash
+    hg topic X.Y
+    hg bookmark X.Y
+    hg push -r X.Y
+    ```
+    
+    This prompts to create a PR at
+    `https://github.com/sphinx-contrib/zopeext/pull/new/X.Y`.  The PR will allow you to
+    review the changes.
+3.  Ensure the version is incremented:
+    -   `src/sphinxcontrib/zopeext/__version__.py` must be updated.
     -   `CHANGES` must contain a summary of the changes
-3.  Make sure all changes are committed, including the version number
-    changes.
-4.  Tag the sources with [\`hg tag X.Y]{.title-ref}.
-5.  Don\'t forget to `hg push -r main -r X.Y`. (You need to explicitly
-    push the tag or else the corresponding git tag will not get pushed.)
-6.  Temporarily modify the `setup.cfg` file to comment out the variables
-    `tag_build = dev` and `tag_date = true` (do **not** commit this
+4.  Make sure all changes are committed, including the version number
+    changes and review these.
+5.  Trigger a build of the `X.Y` on [Read The Docs][].  (Until you merge this with the
+    `main` branch, you may need to [make X.Y an active
+    version](https://readthedocs.org/projects/zopeext/versions/).)  Check that this
+    looks okay.
+6.  Once everything looks good, temporarily modify the `setup.cfg` file to comment out
+    the variables `tag_build = dev` and `tag_date = true` (do **not** commit this
     changes).
-7.  Run [pdm build]{.title-ref}.
-8.  Run [pdm publish]{.title-ref}.
+7.  Publish to [PyPI][]:
 
-(The following are old need updates.
+    ```bash
+    pdm build
+    pdm publish
+    ```
 
-7.  Run [poetry build]{.title-ref}.
+    You may need to first establish your credentials https://pypi.org/manage/account/token/. See
+    <https://pdm.fming.dev/latest/usage/project/#configure-the-repository-secrets-for-upload>
 
-8.  Run [poetry publish]{.title-ref}.
+    Fix any issues as needed.
+8.  Tag the sources with `hg tag -m X.Y`.
+9.  Push the tag `hg push -r X.Y`, and merge into the main branch or complete the merge
+    request. If pushing, you need to explicitly push the tag or else the corresponding
+    git tag will not get pushed.
+    
+10. Revert `setup.cfg`, update `__version__.py` to the next version `X.Z.dev0`,
+    create a new topic, and push:
 
-    You may need to first establish your credentials. See
-    <https://python-poetry.org/docs/repositories/#configuring-credentials>
-
-9.  Register and upload the new release
-    `twine upload dist/sphinxcontrib-zopeext-*.tar.gz`.
-
-10. Generate the documentation with `make -C doc zip`. (Note: you can
-    install the required tools with `pip install .[docs]`. This build
-    uses latexmk so I needed to disable my global `.latekmkrc`
-    configuration which specified a different output directory and
-    confused sphinx.)
-
-11. \<Outdated: need to use <https://readthedocs.org>\> Upload the new
-    documentation (`doc/_build/sphinxcontrib-zopeext-doc.zip`) to PyPi:
-    <http://pypi.python.org/pypi?%3Aaction=pkg_edit&name=sphinxcontrib-zopeext>
+    ```bash
+    hg revert setup.cfg
+    vi src/sphinxcontrib/zopeext/__version__.py
+    hg topic X.Z
+    hg bookmark X.Z
+    hg com -m "BRN: Start working on X.Z"
+    hg push -r X.Z
+    ```
 
 ## PDM
 
@@ -175,4 +202,5 @@ provider._find_candidates(core.get_dependencies()['sphinx'])
 [issue #9]: <https://github.com/sphinx-contrib/zopeext/issues/9>
 [Should You Use Upper Bound Version Constraints?]: 
   <https://iscinumpy.dev/post/bound-version-constraints/>
-
+[hg-git]: <https://hg-git.github.io/>
+[Read the Docs]: <https://readthedocs.org/projects/zopeext/>
