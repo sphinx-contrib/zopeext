@@ -2,6 +2,11 @@
 
 This file describes user-visible changes between the extension versions.
 
+Version 0.4.2 (2023-04-19)
+==========================
+* Actually add the namespace package!
+* Working GitHub CI and ReadTheDocs.
+
 Version 0.4.0 (2023-04-18)
 ==========================
 * Drop support for Python 3.6

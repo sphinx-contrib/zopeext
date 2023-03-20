@@ -1,42 +1,75 @@
-[tool.pdm]
-[tool.pdm.dev-dependencies]
-dev = [
-    "sphinx-testing>=1.0.1",
-    "pytest-cov>=4.0.0",
-    #'Sphinx[test] >= 6.1.3; python_version >= "3.8"',
-    'importlib-metadata>=4.8.3; python_version < "3.8"',
-    'pip>=21.3.1 ; python_version < "3.7"',
-    'pip>=22.2.1 ; python_version >= "3.7"',
-    #'sphinxcontrib-applehelp>=1.0.4; python_version >= "3.8"',
-    #'sphinxcontrib-htmlhelp>=2.0.1; python_version >= "3.8"',
-    # The following fixes a latex error... but only works for some versions of Sphinx,
-    # and python does not seem to support conditional dependencies.
-    #'docutils<0.20,>=0.14',
-    #'docutils >= 0.19; python_version >= "3.8"',
-    "sphinx-book-theme>=0.0.39",
-    "sphinx-autobuild>=2021.3.14",
-]
+[tool.pdm.build]
+# https://pdm.fming.dev/latest/pyproject/build/#implicit-namespace-packages
+includes = ["src/sphinxcontrib"]
+
+[tool.pdm.version]
+source = "file"
+path = "src/sphinxcontrib/zopeext/__version__.py"
 
 [project]
 name = "sphinxcontrib-zopeext"
-version = "0.4.0"
+dynamic = ["version"]
 description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope interfaces."
 authors = [
     {name = "Michael McNeil Forbes", email = "mforbes@alum.mit.edu"},
 ]
+
+# These are the required metadata tags.  Although they could be used to dynamically
+# update the trove classifiers, as per PEP-621, this is forbidden by the standard.
+# Thus, standard compliant tools like PDM do not do this (in contrast to e.g. Poetry).
+#
+#   https://peps.python.org/pep-0621/#allow-tools-to-add-extend-data
+#
+# Thus, don't forget to update the trove classifiers if you changce these!
+requires-python = ">=3.7"
+license = {text = "BSD-2-Clause"}
+
 dependencies = [
     'zope.interface>=5.5.2',
     'Sphinx >= 4.5.0',
 ]
-requires-python = ">=3.7"
-readme = "README.rst"
-license = {text = "BSD-2-Clause"}
+readme = "README.md"
+
+# See comment above about requires-python and license.
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: BSD License",
+    "Development Status :: 4 - Beta",
+    "Framework :: Sphinx :: Extension",
+    "Framework :: Zope",
+    "Topic :: Documentation",
+    "Topic :: Documentation :: Sphinx",
+]
+
+[project.urls]
+Homepage = "https://github.com/sphinx-contrib/zopeext/"
+Repository = "https://github.com/sphinx-contrib/zopeext/"
+Documentation = "https://zopeext.readthedocs.io/en/latest/"
+Changelog = "https://zopeext.readthedocs.io/en/latest/#changelog"
 
 [project.optional-dependencies]
 test = [
     'importlib-metadata>=4.8.3; python_version < "3.8"',
     'pip>=22.2.1',
     'pytest-cov>=4.0.0',
+    "sphinx-testing>=1.0.1",
+    "pytest>=7.2.2",
+]
+doc = [
+    "sphinx-book-theme>=0.0.39",
+    "sphinx-autobuild>=2021.3.14",
+]
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "sphinxcontrib-zopeext[test,doc]"
 ]
 
 [build-system]
@@ -65,3 +98,9 @@ doctest_optionflags = [
     "ELLIPSIS",
     "NORMALIZE_WHITESPACE",
 ]
+
+######################################################################
+# Coverage
+[tool.coverage.run]
+# https://github.com/marketplace/actions/coveralls-python#coveragepy-configuration
+relative_files = true
