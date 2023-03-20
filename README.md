@@ -21,14 +21,6 @@ zopeext for Sphinx
 [Documentation status badge]: <https://readthedocs.org/projects/zopeext/badge/?version=latest> 
 [Documentation link]:  <https://zopeext.readthedocs.io/en/latest/?badge=latest>
 
-![PyPI](https://img.shields.io/pypi/v/sphinxcontrib-zopeext?color=blue&logo=python&logoColor=FBE072)
-
-
-https://img.shields.io/pypi/pyversions/coverage.svg?logo=python&logoColor=FBE072
-
-https://img.shields.io/pypi/v/sphinxcontrib-zopeext.sgv?logo=python&logoColor=FBE072
-sphinxcontrib-zopeext
-
 This extension provides an `autointerface` directive for [Zope interfaces][].
 
 Installation

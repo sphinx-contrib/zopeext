@@ -1,9 +1,14 @@
 [tool.pdm.build]
+# https://pdm.fming.dev/latest/pyproject/build/#implicit-namespace-packages
 includes = ["src/sphinxcontrib"]
+
+[tool.pdm.version]
+source = "file"
+path = "src/sphinxcontrib/zopeext/__version__.py"
 
 [project]
 name = "sphinxcontrib-zopeext"
-version = "0.4.0.dev0"
+dynamic = ["version"]
 description = "Provides sphinxcontrib.zopeext.autointerface for documenting Zope interfaces."
 authors = [
     {name = "Michael McNeil Forbes", email = "mforbes@alum.mit.edu"},

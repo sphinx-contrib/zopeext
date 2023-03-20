@@ -1,3 +1,4 @@
-__all__ = ["autointerface"]
+from . import autointerface
+from .__version__ import __version__
 
-__version__ = "0.4.1.dev0"
+__all__ = ["autointerface", "__version__"]
