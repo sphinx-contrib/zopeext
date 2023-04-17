@@ -90,7 +90,7 @@ addopts = [
     "--cov-fail-under=85",
     "--no-cov-on-fail",
     #"-x",
-    "--pdb",
+    #"--pdb",
     #"--flake8",
 ]
 
