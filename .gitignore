@@ -4,4 +4,5 @@
 htmlcov/
 build/
 pdm.lock
+.venv/
 _tmp/

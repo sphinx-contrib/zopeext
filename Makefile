@@ -20,6 +20,7 @@ clean:
 	$(RM) -r sphinxcontrib_zopeext.egg-info
 	$(RM) -r dist
 	$(RM) -r build
+	$(RM) -r Docs/build
 	-find . -name "__pycache__" -exec $(RM) -r {} +
 
 realclean: clean
