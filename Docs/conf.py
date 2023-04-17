@@ -69,7 +69,10 @@ latex_show_urls = "footnote"
 intersphinx_mapping = {
     "sphinx": ("http://www.sphinx-doc.org/en/master/", None),
     "zope": ("https://www.zope.org/", None),
+    "zope.interface": ("https://zopeinterface.readthedocs.io/en/latest/", None),
 }
+
+nitpick = True
 
 # Most themes have no styling for interfaces, only class, or exception.  Here is some
 # javascript that adds the HTML "class" class everywhere there is an HTML "interface"

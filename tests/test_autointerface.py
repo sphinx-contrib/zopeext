@@ -7,6 +7,7 @@ import sphinx
 
 from sphinx.testing.path import path
 
+
 import pytest
 
 # Add current directory to path so we can import the example.py file.

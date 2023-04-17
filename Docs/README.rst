@@ -38,12 +38,14 @@ Here is an example produced by the following code:
     .. automodule:: example
        :show-inheritance:
        :inherited-members:
+       :noindex:
      
 .. admonition:: Example (click on the "[source]" link at the right to see the code)
 
    .. automodule:: example
      :show-inheritance:
      :inherited-members:
+     :noindex:
 
 .. note:: We have included the ``autointerface.css`` which simply adds the
    following rule to give a green background for the interface::

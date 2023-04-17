@@ -21,7 +21,6 @@ from sphinx.testing.path import path
 
 import sphinxcontrib.zopeext
 
-
 pytest_plugins = "sphinx.testing.fixtures"
 
 # Exclude 'roots' dirs for pytest test collector
