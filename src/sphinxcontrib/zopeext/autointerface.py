@@ -42,7 +42,7 @@ Implementation Details
    setup
 
 """
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, Union
 
 import sphinx.ext.autodoc
 import sphinx.domains.python
@@ -54,9 +54,14 @@ import zope.interface.interface
 
 from sphinx.ext.autodoc import (
     ClassDocumenter,
-    ObjectMembers,
+    ObjectMember,
     logger,
 )
+
+# This has been removed from sphinx since version 7.2.0.
+ObjectMembers = Union[list[ObjectMember], list[tuple[str, Any]]]
+
+
 from sphinx.domains.python import PyXRefRole
 
 from . import __version__
