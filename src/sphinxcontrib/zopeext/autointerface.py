@@ -42,7 +42,7 @@ Implementation Details
    setup
 
 """
-from typing import Any, Dict, Tuple, Union
+from typing import Any, Dict, Tuple, List, Union
 
 import sphinx.ext.autodoc
 import sphinx.domains.python
@@ -59,8 +59,7 @@ from sphinx.ext.autodoc import (
 )
 
 # This has been removed from sphinx since version 7.2.0.
-ObjectMembers = Union[list[ObjectMember], list[tuple[str, Any]]]
-
+ObjectMembers = Union[List[ObjectMember], List[Tuple[str, Any]]]
 
 from sphinx.domains.python import PyXRefRole
 
