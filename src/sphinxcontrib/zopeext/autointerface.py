@@ -42,7 +42,7 @@ Implementation Details
    setup
 
 """
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, List, Union
 
 import sphinx.ext.autodoc
 import sphinx.domains.python
@@ -54,9 +54,13 @@ import zope.interface.interface
 
 from sphinx.ext.autodoc import (
     ClassDocumenter,
-    ObjectMembers,
+    ObjectMember,
     logger,
 )
+
+# This has been removed from sphinx since version 7.2.0.
+ObjectMembers = Union[List[ObjectMember], List[Tuple[str, Any]]]
+
 from sphinx.domains.python import PyXRefRole
 
 from . import __version__
@@ -132,7 +136,7 @@ class InterfaceDocumenter(ClassDocumenter):
             selected = []
             for name in self.options.members:  # type: str
                 if name in names:
-                    selected.append((name, obj.get(name)))
+                    selected.append(ObjectMember(name, obj.get(name)))
                 else:
                     logger.warning(
                         __("missing attribute %s in interface %s")
@@ -141,10 +145,10 @@ class InterfaceDocumenter(ClassDocumenter):
                     )
             return False, selected
         elif self.options.inherited_members:
-            return False, [(_name, obj.get(_name)) for _name in names]
+            return False, [ObjectMember(_name, obj.get(_name)) for _name in names]
         else:
             return False, [
-                (_name, obj.get(_name))
+                ObjectMember(_name, obj.get(_name))
                 for _name in names
                 if obj.get(_name).interface == self.object
             ]

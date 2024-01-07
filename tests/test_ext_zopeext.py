@@ -57,7 +57,7 @@ def test_interfaces(app):
     ]
 
 
-@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+@pytest.mark.sphinx(buildername="html", testroot="zopeext-autointerface")
 def test_classes(app):
     actual = do_autodoc(app, "function", "target.interfaces.MyImplementation")
     assert list(actual) == [
@@ -89,7 +89,7 @@ def test_classes(app):
 
 
 @pytest.mark.skipif(sphinx.version_info < (4, 1), reason="sphinx 4.1+ is required.")
-@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+@pytest.mark.sphinx(buildername="html", testroot="zopeext-autointerface")
 def test_class_doc_from_class(app):
     options = {"members": None, "class-doc-from": "class"}
     actual = do_autodoc(app, "interface", "target.interfaces.IMyInterface", options)
@@ -127,7 +127,7 @@ def test_class_doc_from_class(app):
 
 
 @pytest.mark.skipif(sphinx.version_info < (4, 1), reason="sphinx 4.1+ is required.")
-@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+@pytest.mark.sphinx(buildername="html", testroot="zopeext-autointerface")
 def test_class_doc_from_init(app):
     options = {"members": None, "class-doc-from": "init"}
     actual = do_autodoc(app, "interface", "target.interfaces.IMyInterface", options)
@@ -170,7 +170,7 @@ def test_class_doc_from_init(app):
 
 
 @pytest.mark.skipif(sphinx.version_info < (4, 1), reason="sphinx 4.1+ is required.")
-@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+@pytest.mark.sphinx(buildername="html", testroot="zopeext-autointerface")
 def test_class_doc_from_both(app):
     options = {"members": None, "class-doc-from": "both"}
     actual = do_autodoc(app, "interface", "target.interfaces.IMyInterface", options)
@@ -215,7 +215,7 @@ def test_class_doc_from_both(app):
 
 
 @pytest.mark.skipif(sys.version_info < (3, 7), reason="python 3.7+ is required.")
-@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+@pytest.mark.sphinx(buildername="html", testroot="zopeext-autointerface")
 def test_show_inheritance_for_subclass_of_generic_type(app):
     options = {"show-inheritance": None}
     actual = do_autodoc(app, "interface", "target.interfaces.IMyInterface2", options)
@@ -231,7 +231,7 @@ def test_show_inheritance_for_subclass_of_generic_type(app):
     ]
 
 
-@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+@pytest.mark.sphinx(buildername="html", testroot="zopeext-autointerface")
 def test_interface_alias(app):
     def autodoc_process_docstring(*args):
         """A handler always raises an error.
@@ -285,7 +285,7 @@ def test_interface_alias(app):
     ]
 
 
-@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+@pytest.mark.sphinx(buildername="html", testroot="zopeext-autointerface")
 def test_interface_alias_having_doccomment(app):
     actual = do_autodoc(app, "interface", "target.interfaces.IOtherAlias")
     if sphinx.version_info < (4, 1, 2):
@@ -319,7 +319,7 @@ def test_interface_alias_having_doccomment(app):
         # I don't know why later versions do not include the alias...
 
 
-@pytest.mark.sphinx("html", testroot="zopeext-autointerface")
+@pytest.mark.sphinx(buildername="html", testroot="zopeext-autointerface")
 def test_missing_member(app):
     """Regression test for issue #3.
 
@@ -366,6 +366,9 @@ def test_missing_member(app):
             "",
         ]
 
+    if sphinx.version_info < (7, 2):
+        # Earlier versions of sphinx have some Deprecation Warnings.
+        w = [w for w in w if w.category is not DeprecationWarning]
     assert len(w) == 1
     assert (
         "missing attribute missing_member in interface target.interfaces.IMyInterface"

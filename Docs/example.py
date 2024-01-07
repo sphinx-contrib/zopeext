@@ -1,4 +1,4 @@
-"""Example module using :mod:`zope.interface`.
+"""Example module using :external+zope.interface:doc:`README`
 
 Here we define an interface :interface:`IMyInterface` and an
 implementation :class:`MyImplementation`.

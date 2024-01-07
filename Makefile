@@ -1,4 +1,5 @@
-PYTHON = python3.10
+PYTHON ?= python3.11
+
 shell: .venv
 	bash --init-file .init-file.bash
 
@@ -15,11 +16,16 @@ doc-server: .venv
 	. .venv/bin/activate && sphinx-autobuild --re-ignore '_build|_generated' doc doc/_build/html
 
 clean:
-	-rm -r .coverage
-	-rm -r htmlcov
-	-rm -r sphinxcontrib_zopeext.egg-info
-	-rm -r dist
-	-rm -r build
+	$(RM) -r .coverage
+	$(RM) -r htmlcov
+	$(RM) -r sphinxcontrib_zopeext.egg-info
+	$(RM) -r dist
+	$(RM) -r build
+	$(RM) -r Docs/_build
+	$(RM) -r tests/examples/_build*
 	-find . -name "__pycache__" -exec $(RM) -r {} +
 
-.PHONY: shell test clean doc-server
+realclean: clean
+	$(RM) -r .venv/
+
+.PHONY: shell test clean realclean doc-server

@@ -18,3 +18,5 @@ source_suffix = ".rst"
 autodoc_default_options = {"member-order": "groupwise"}
 
 master_doc = "index"
+
+nitpicky = True

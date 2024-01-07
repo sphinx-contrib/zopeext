@@ -11,16 +11,16 @@ except ImportError:
     import importlib_metadata as importlib_metadata
 
 import os
+from pathlib import Path
+
+
 import shutil
 
 import pytest
 
 import sphinx
-from sphinx.testing import comparer
-from sphinx.testing.path import path
-
+    
 import sphinxcontrib.zopeext
-
 
 pytest_plugins = "sphinx.testing.fixtures"
 
@@ -30,7 +30,10 @@ collect_ignore = ["roots"]
 
 @pytest.fixture(scope="session")
 def rootdir():
-    return path(__file__).parent.abspath() / "roots"
+    if sphinx.version_info < (7, 2):
+        from sphinx.testing.path import path
+        return path(__file__).parent.abspath() / "roots"
+    return Path(__file__).parent.absolute() / "roots"
 
 
 def pytest_report_header(config):
@@ -43,10 +46,6 @@ def pytest_report_header(config):
         header += "\nbase tempdir: %s" % config._tmp_path_factory.getbasetemp()
 
     return header
-
-
-def pytest_assertrepr_compare(op, left, right):
-    comparer.pytest_assertrepr_compare(op, left, right)
 
 
 def _initialize_test_directory(session):

@@ -1,21 +1,47 @@
 # Maintainer documentation
 
 [![Test badge][]][GitHub Tests Workflow]
-[![PyPi version badge][]][PyPi badge link]
-[![GitHub version badge][]][GitHub badge link]
+[![PyPI badge][]][PyPI link]
+[![gh: tag badge][]][gh: tags]
 [![Coverage badge][]][Coverage link]
 [![Documentation status badge][]][Documentation link]
+[![Python versions badge][]][PyPI link]
+
+[![open-ssf badge][]][open-ssf link]
+
+[![gh: tag badge][]][gh: tags]
+[![gh: forks badge][]][gh: forks]
+[![gh: contributors badge][]][gh: contributors]
+[![gh: stars badge][]][gh: stars]
+[![gh: issues badge][]][gh: issues]
+
 
 [Test badge]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml/badge.svg>
 [GitHub Tests Workflow]: <https://github.com/sphinx-contrib/zopeext/actions/workflows/tests.yaml>
-[PyPi version badge]: <https://badge.fury.io/py/sphinxcontrib-zopeext.svg>
-[PyPi badge link]: <https://badge.fury.io/py/sphinxcontrib-zopeext>
-[GitHub version badge]: <https://badge.fury.io/gh/sphinx-contrib%2Fzopeext.svg>
-[GitHub badge link]: <https://badge.fury.io/gh/sphinx-contrib%2Fzopeext>
+[PyPI badge]: <https://img.shields.io/pypi/v/sphinxcontrib-zopeext?logo=python&logoColor=FBE072">
 [Coverage badge]: <https://coveralls.io/repos/github/sphinx-contrib/zopeext/badge.svg?branch=main>
 [Coverage link]: <https://coveralls.io/github/sphinx-contrib/zopeext?branch=main>
 [Documentation status badge]: <https://readthedocs.org/projects/zopeext/badge/?version=latest> 
 [Documentation link]:  <https://zopeext.readthedocs.io/en/latest/?badge=latest>
+[Python versions badge]:
+  <https://img.shields.io/pypi/pyversions/sphinxcontrib-zopeext?logo=python&logoColor=FBE072>
+[PyPI link]: <https://pypi.org/project/sphinxcontrib-zopeext/>
+[open-ssf badge]: 
+  <https://api.securityscorecards.dev/projects/github.com/sphinx-contrib/zopeext/badge>
+[open-ssf link]: <https://deps.dev/pypi/sphinxcontrib-zopeext>
+
+[gh: forks badge]: <https://img.shields.io/github/forks/sphinx-contrib/zopeext.svg?logo=github>
+[gh: forks]: <https://github.com/sphinx-contrib/zopeext/network/members>
+[gh: contributors badge]: 
+  <https://img.shields.io/github/contributors/sphinx-contrib/zopeext.svg?logo=github>
+[gh: contributors]: <https://github.com/sphinx-contrib/zopeext/graphs/contributors>
+[gh: stars badge]: <https://img.shields.io/github/stars/sphinx-contrib/zopeext.svg?logo=github>
+[gh: stars]: <https://github.com/sphinx-contrib/zopeext/stargazers>
+[gh: tag badge]: <https://img.shields.io/github/v/tag/sphinx-contrib/zopeext?logo=github>
+[gh: tags]: <https://github.com/sphinx-contrib/zopeext/tags>
+[gh: issues badge]: <https://img.shields.io/github/issues/sphinx-contrib/zopeext?logo=github>
+[gh: issues]: <https://github.com/sphinx-contrib/zopeext/issues>
+
 
 This document contains notes for developers and packagers. End users probably want to
 read [`README.md`](README.md). 
@@ -110,6 +136,17 @@ that these are available for [nox][] to use.
     hg push -r X.Z
     ```
 
+## CI
+
+I am currently using [GitHub][]'s continuous integration (CI) tools.  These are set up in
+the [`.github/workflows`](.github/workflows) folder and include:
+
+* Testing: [![Test badge][]][GitHub Tests Workflow].
+* Coverage: [![Coverage badge][]][Coverage link].  Currently done with [Coveralls][].
+* [Security
+  Analysis](https://github.com/sphinx-contrib/zopeext/settings/security_analysis).
+  Currently done with [CodeQL][].
+
 ## PDM
 
 I tried using [Poetry][] to manage the dependencies, but it is very aggressive about
@@ -194,6 +231,7 @@ provider = core.get_provider()
 provider._find_candidates(core.get_dependencies()['sphinx'])
 ```
 
+[GitHub]: <github.com>
 [nox]: <https://nox.thea.codes/en/stable/config.html>
 [pdm]: <https://pdm.fming.dev/latest/>
 [poetry]: <https://python-poetry.org/>
@@ -204,3 +242,5 @@ provider._find_candidates(core.get_dependencies()['sphinx'])
   <https://iscinumpy.dev/post/bound-version-constraints/>
 [hg-git]: <https://hg-git.github.io/>
 [Read the Docs]: <https://readthedocs.org/projects/zopeext/>
+[Coveralls]: <https://coveralls.io/>
+[CodeQL]: <https://codeql.github.com/>
