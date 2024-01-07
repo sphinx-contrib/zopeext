@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
 from packaging import version
+import shutil
 import sys
 
 import sphinx
-
-from sphinx.testing.path import path
-
-
+if sphinx.version_info < (7, 2):
+    from sphinx.testing.path import path as Path
+else:
+    from pathlib import Path
+    
 import pytest
 
 # Add current directory to path so we can import the example.py file.
@@ -15,7 +17,7 @@ sys.path.insert(0, os.path.abspath(__file__))
 
 pytest_plugins = "sphinx.testing.fixtures"
 
-_SRCDIR = path(os.path.dirname(__file__)) / "examples"
+_SRCDIR = Path(os.path.dirname(__file__)) / "examples"
 _BUILDDIR = _SRCDIR / '_build{}'.format(os.environ.get('NOX_CURRENT_SESSION', ''))
 
 @pytest.mark.sphinx(
@@ -30,10 +32,10 @@ def test_sphinx_build(app, status, warning):
     html = (app.outdir / "index.html").read_text()
 
     for _n, _E in enumerate(_EXPECTED):
-        assert _E.strip() in html
+        assert _E.strip().replace("Permalink", "Link") in html.replace("Permalink", "Link")
 
     # This should leave broken builds, but remove the rest.
-    app.outdir.parent.rmtree(ignore_errors=True)
+    shutil.rmtree(app.outdir.parent, ignore_errors=True)
 
 _EXPECTED = [
     """

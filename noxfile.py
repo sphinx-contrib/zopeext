@@ -14,6 +14,8 @@ sphinx_versions = {_p: ["4.5.0", "5.3.0", "6.1.3", "7.2.6"] for _p in python_ver
 # https://github.com/pdm-project/pdm/issues/259#issuecomment-1407595572
 excluded_versions = {
     ("3.7", "6.1.3"),
+    ("3.7", "7.2.6"),
+    ("3.8", "7.2.6"),
 }
 
 python_sphinx = [

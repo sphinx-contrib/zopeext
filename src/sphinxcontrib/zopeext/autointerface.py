@@ -136,7 +136,7 @@ class InterfaceDocumenter(ClassDocumenter):
             selected = []
             for name in self.options.members:  # type: str
                 if name in names:
-                    selected.append((name, obj.get(name)))
+                    selected.append(ObjectMember(name, obj.get(name)))
                 else:
                     logger.warning(
                         __("missing attribute %s in interface %s")
@@ -145,10 +145,10 @@ class InterfaceDocumenter(ClassDocumenter):
                     )
             return False, selected
         elif self.options.inherited_members:
-            return False, [(_name, obj.get(_name)) for _name in names]
+            return False, [ObjectMember(_name, obj.get(_name)) for _name in names]
         else:
             return False, [
-                (_name, obj.get(_name))
+                ObjectMember(_name, obj.get(_name))
                 for _name in names
                 if obj.get(_name).interface == self.object
             ]
