@@ -366,6 +366,9 @@ def test_missing_member(app):
             "",
         ]
 
+    if sphinx.version_info < (7, 2):
+        # Earlier versions of sphinx have some Deprecation Warnings.
+        w = [w for w in w if w.category is not DeprecationWarning]
     assert len(w) == 1
     assert (
         "missing attribute missing_member in interface target.interfaces.IMyInterface"
