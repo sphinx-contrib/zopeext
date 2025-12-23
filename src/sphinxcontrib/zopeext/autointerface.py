@@ -42,6 +42,7 @@ Implementation Details
    setup
 
 """
+import logging
 from typing import Any, Dict, Tuple, List, Union
 
 import sphinx.ext.autodoc
@@ -55,8 +56,9 @@ import zope.interface.interface
 from sphinx.ext.autodoc import (
     ClassDocumenter,
     ObjectMember,
-    logger,
 )
+
+logger = logging.getLogger('zopeext.autointerface')
 
 # This has been removed from sphinx since version 7.2.0.
 ObjectMembers = Union[List[ObjectMember], List[Tuple[str, Any]]]
@@ -141,7 +143,6 @@ class InterfaceDocumenter(ClassDocumenter):
                     logger.warning(
                         __("missing attribute %s in interface %s")
                         % (name, self.fullname),
-                        type="autointerface",
                     )
             return False, selected
         elif self.options.inherited_members:

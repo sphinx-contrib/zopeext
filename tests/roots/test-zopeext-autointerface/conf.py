@@ -20,3 +20,4 @@ autodoc_default_options = {"member-order": "groupwise"}
 master_doc = "index"
 
 nitpicky = True
+autodoc_use_legacy_class_based = True

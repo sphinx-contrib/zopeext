@@ -9,6 +9,9 @@ def _has_venv(session):
 python_versions = ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
 sphinx_versions = {_p: ["4.5.0", "5.3.0", "6.1.3", "7.2.6", "8.2.3"] #, "9.0.4"]
                    for _p in python_versions}
+python_versions = ["3.13"]
+sphinx_versions = {_p: ["9.0.4"]
+                   for _p in python_versions}
 
 # These are in the full matrix, but excluded by the constraints in pyproject.toml.  Not
 # sure how to exclude these programmatically yet with pdm.

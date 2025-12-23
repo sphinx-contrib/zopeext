@@ -73,6 +73,7 @@ intersphinx_mapping = {
 }
 
 nitpick = True
+autodoc_use_legacy_class_based = True
 
 # Most themes have no styling for interfaces, only class, or exception.  Here is some
 # javascript that adds the HTML "class" class everywhere there is an HTML "interface"

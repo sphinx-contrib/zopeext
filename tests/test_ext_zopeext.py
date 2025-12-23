@@ -327,8 +327,8 @@ def test_missing_member(app):
     """
     old_warning = logger.warning
 
-    def warning(msg, type):
-        old_warning(msg, type=type)
+    def warning(msg):
+        old_warning(msg)
         warnings.warn(msg)
 
     logger.warning = warning
