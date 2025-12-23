@@ -37,16 +37,24 @@ def test_sphinx_build(app, status, warning):
         _E = _E.strip()
         if version.parse(sphinx.__version__) < version.parse("7.2.0"):
             _E = _E.replace("Link", "Permalink")
+            
         if version.parse(sphinx.__version__) < version.parse("8.2.0"):
             # Note `(.*?)` is a non-greedy match.
             p = re.compile(r'<span class="k"><span class="pre">(.*?)</span></span>')
             r = r'<span class="pre">\1</span>'
-            if r'<span class="k">' in _E:
+            if p.search(_E):
                 _E = p.sub(r, _E)
-        assert _E in html
-
-        # Some code for debugging when needed
-        # except:
+        
+        if version.parse(sphinx.__version__) >= version.parse("9.0.0"):
+            p = re.compile(r'<em class="property">(.*?)</em>')
+            r = r'<span class="property">\1</span>'
+            if p.search(_E):
+                _E = p.sub(r, _E)
+            
+        try:
+            assert _E in html
+        except:
+            raise
             # with open('_lhs.html', 'w') as f:
             #     f.write(_E)
             # with open('_rhs.html', 'w') as f:
