@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip pipx
-          pipx install nox
+          pipx install nox --python 3.13
       - name: Test with pytest
         run: nox -p ${{ matrix.python-version }}
       - name: Coveralls Parallel
