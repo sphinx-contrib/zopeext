@@ -264,6 +264,10 @@ $(document).ready(function() {
 
 def setup(app: Sphinx) -> Dict[str, Any]:
     app.setup_extension("sphinx.ext.autodoc")
+
+    # We currently need to use the legacy classes.
+    app.config.autodoc_use_legacy_class_based = True
+
     app.add_autodoc_attrgetter(
         zope.interface.interface.InterfaceClass, interface_getattr
     )
