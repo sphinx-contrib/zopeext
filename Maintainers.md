@@ -50,7 +50,7 @@ read [`README.md`](README.md).
 ## TL;DR
 
 ```bash
-# Use your system to install python3.7 through python3.11 and pipx
+# Use your system to install python3.7 through python3.14 and pipx
 pipx install nox
 pipx install pdm
 
@@ -62,7 +62,7 @@ make doc-server
 
 # Open a shell for development
 make shell
-PYTHON=python3.10 make shell
+PYTHON=python3.13 make shell
 ```
 
 ## Testing

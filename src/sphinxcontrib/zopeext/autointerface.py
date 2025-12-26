@@ -42,6 +42,7 @@ Implementation Details
    setup
 
 """
+
 import logging
 from typing import Any, Dict, Tuple, List, Union
 
@@ -58,7 +59,7 @@ from sphinx.ext.autodoc import (
     ObjectMember,
 )
 
-logger = logging.getLogger('zopeext.autointerface')
+logger = logging.getLogger("zopeext.autointerface")
 
 # This has been removed from sphinx since version 7.2.0.
 ObjectMembers = Union[List[ObjectMember], List[Tuple[str, Any]]]
