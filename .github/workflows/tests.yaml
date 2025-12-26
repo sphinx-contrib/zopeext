@@ -26,6 +26,7 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           parallel: true
+          format: python
           flag-name: run-${{ join(matrix.*, '-') }}
 
   finish:
