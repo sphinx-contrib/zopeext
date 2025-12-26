@@ -18,8 +18,9 @@ jobs:
             ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          python3.12 -m pip install --upgrade pip pipx
+          python3.12 -m pip install --upgrade pipx
           python3.12 -m pipx install nox
+          python3.12 -m pipx install coverage
       - name: Test with pytest
         run: nox -p ${{ matrix.python-version }}
       - name: Coveralls Parallel

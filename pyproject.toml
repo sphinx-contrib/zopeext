@@ -60,6 +60,7 @@ Changelog = "https://zopeext.readthedocs.io/en/latest/#changelog"
 [project.optional-dependencies]
 test = [
     'importlib-metadata>=4.8.3; python_version < "3.8"',
+    'typing_extensions<4.8.0; python_version < "3.8"',
     'pip>=22.2.1',
     'pytest-cov>=4.0.0',
     "sphinx-testing>=1.0.1",
