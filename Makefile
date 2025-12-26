@@ -1,4 +1,4 @@
-PYTHON ?= python3.11
+PYTHON ?= python3.12
 
 shell: .venv
 	bash --init-file .init-file.bash
