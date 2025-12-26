@@ -119,7 +119,7 @@ that these are available for [nox][] to use.
     <https://pdm.fming.dev/latest/usage/project/#configure-the-repository-secrets-for-upload>
 
     Fix any issues as needed.
-8.  Tag the sources with `hg tag -m X.Y`.
+8.  Tag the sources with `hg tag X.Y`.
 9.  Push the tag `hg push -r X.Y`, and merge into the main branch or complete the merge
     request. If pushing, you need to explicitly push the tag or else the corresponding
     git tag will not get pushed.
